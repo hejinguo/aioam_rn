@@ -5,7 +5,16 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Image, Text, View, Button, TextInput, Alert,TouchableOpacity} from 'react-native';
+import {StyleSheet, Image, View, TextInput, Alert,TouchableOpacity} from 'react-native';
+import {
+    Button,
+    Icon,
+    Text,
+    InputGroup,
+    Input,
+    List,
+    ListItem
+} from 'native-base';
 
 import main from './main';
 
@@ -29,46 +38,34 @@ export default class login extends Component {
                 {/*<Image source={require('./img/app-login-logo.png')} style={styles.logo}/>*/}
                 <View style={styles.aheader}>
                     <Text style={{color: '#000000',textAlign:'center'}}>
-                        政企业务运营支撑助手
-                        {this.state.loginCode}
+                        <Icon name="ios-unlock" style={{ color: '#5CB85C'}} />
                     </Text>
                 </View>
                 <View style={styles.abody}>
-                    <TextInput
-                        editable={true}
-                        maxLength={100}
-                        placeholder="请输入工号"
-                        onChangeText={(text) => {this.setState({loginCode:text})}}
-                    />
-                    <TextInput
-                        secureTextEntry={true}
-                        editable={true}
-                        maxLength={100}
-                        placeholder="请输入密码"
-                        onChangeText={(text) => {this.setState({password:text})}}
-                    />
-                    <View style={{flexDirection:'row',alignItems:'center',paddingBottom:10}}>
-                        <TextInput
-                            style={{flex:1}}
-                            editable={true}
-                            maxLength={100}
-                            placeholder="请输入验证码"
-                            onChangeText={(text) => {this.setState({loginMark:text})}}
-                        />
-                        <TouchableOpacity onPress={this._handleLogin.bind(this)}>
-                            <Text style={{color:'#00C1DE'}}>获取验证码</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <Button title="登陆" color="#7AC23C"
-                            onPress={() => Alert.alert(
-                            'Alert Title',
-                            JSON.stringify(this.state)
-                        )}
-                    />
+                    <List>
+                        <ListItem>
+                            <InputGroup>
+                                <Icon name="ios-person" style={{ color: '#5CB85C' }} />
+                                <Input placeholder="请输入工号" />
+                            </InputGroup>
+                        </ListItem>
+                        <ListItem>
+                            <InputGroup>
+                                <Icon name="ios-unlock" style={{ color: '#5CB85C' }} />
+                                <Input placeholder="请输入密码" secureTextEntry />
+                            </InputGroup>
+                        </ListItem>
+                        <ListItem>
+                            <InputGroup>
+                                <Icon name="ios-call" style={{ color: '#5CB85C' }} />
+                                <Input placeholder="请输入验证码" keyboardType="numeric" />
+                            </InputGroup>
+                        </ListItem>
+                    </List>
+                    <TouchableOpacity style={{marginTop: 10,alignItems:'flex-end'}}><Text>获取验证码</Text></TouchableOpacity>
+                    <Button block success style={{marginTop: 10, marginBottom: 10 }} onPress={() => this._handleLogin()}>登录</Button>
                 </View>
-                <View>
-                    <Text style={styles.afooter}>Copyright © 2010-2017 ESOP</Text>
-                </View>
+                <Text style={styles.afooter}>Copyright © 2010-2017 ESOP</Text>
             </View>
         );
     }
