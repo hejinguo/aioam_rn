@@ -3,49 +3,43 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Image, Text, View, Button, TextInput, Alert, TouchableHighlight} from 'react-native';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon ,Text,Badge } from 'native-base';
 
 export default class main extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <TextInput/>
-                <View style={{flex:1}}>
-                    <View style={styles.grid_row}>
-                        <TouchableHighlight style={styles.grid_cell} underlayColor="#F00" onPress={() => {}}>
-                            <Text>1111</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={styles.grid_cell} underlayColor="#F00" onPress={() => {}}>
-                            <Text>1111</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={styles.grid_cell} underlayColor="#F00" onPress={() => {}}>
-                            <Text>1111</Text>
-                        </TouchableHighlight>
-                    </View>
+            <Container>
+                {/*<Header height={45}>
+                    <Title>Header</Title>
+                </Header>*/}
 
+                <Content>
+                    <Text>1122</Text>
+                </Content>
 
-                </View>
-            </View>
+                <Footer>
+                    <FooterTab>
+                        <Button>
+                            <Badge>2</Badge>
+                            Apps
+                            <Icon name='ios-apps-outline' />
+                        </Button>
+                        <Button>
+                            Camera
+                            <Icon name='ios-camera-outline' />
+                        </Button>
+                        <Button active>
+                            Navigate
+                            <Icon name='ios-compass' />
+                        </Button>
+                        <Button>
+                            Contact
+                            <Icon name='ios-contact-outline' />
+                        </Button>
+                    </FooterTab>
+                </Footer>
+            </Container>
         )
     }
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'stretch',
-        backgroundColor: '#F5F5F5'
-    },
-    grid_row: {
-        flexDirection: 'row',
-        justifyContent:'space-around'
-    },
-    grid_cell:{
-        flex:1,
-        borderWidth:1,
-        borderColor:'#999',
-        height:50
-    }
-});
