@@ -7,7 +7,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Alert, Text, TouchableOpacity} from 'react-native';
 import {Button, FormLabel, FormInput, Icon} from 'react-native-elements';
-
 import main from './main';
 
 export default class login extends Component {

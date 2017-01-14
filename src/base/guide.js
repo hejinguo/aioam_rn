@@ -4,7 +4,6 @@
 
 import React, {Component} from 'react';
 import {AppRegistry,Navigator} from 'react-native';
-
 import login from './login';
 
 const defaultRoute = {
