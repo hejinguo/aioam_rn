@@ -5,8 +5,8 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, View, Alert, TouchableOpacity} from 'react-native';
-import {Button, FormLabel, FormInput, Text, Icon} from 'react-native-elements';
+import {StyleSheet, View, Alert, Text, TouchableOpacity} from 'react-native';
+import {Button, FormLabel, FormInput, Icon} from 'react-native-elements';
 
 import main from './main';
 
@@ -31,7 +31,7 @@ export default class login extends Component {
             <View style={styles.acontainer}>
                 <View style={styles.aheader}>
                     <Text style={{color:'#00BFBE',fontSize:16}}>
-                        ESOP+运维宝
+                        ESOP+运营宝
                     </Text>
                 </View>
                 <View style={styles.abody}>
@@ -69,12 +69,11 @@ const styles = StyleSheet.create({
     },
     abody: {
         flex: 3,
-        alignItems: 'stretch',
-        padding: 10
+        alignItems: 'stretch'
     },
     afooter: {
-        fontSize: 10,
         padding: 5,
+        fontSize: 10,
         color: '#86939E',
         textAlign: 'center'
     },
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end'
     },
     formlabel: {
-        color:'#86939E'
+        color: '#86939E'
     },
     forminput: {
         borderBottomWidth: 1,
