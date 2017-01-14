@@ -20,7 +20,7 @@ export default class login extends Component {
     }
 
     _handleLogin() {
-        this.props.navigator.push({
+        this.props.navigator.replace({
             component: main
         })
     }

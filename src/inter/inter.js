@@ -4,8 +4,10 @@
 
 import React, {Component} from 'react';
 import {Alert, Text, View, StyleSheet} from 'react-native';
-import {Icon} from 'react-native-elements';
-import ScrollableTabView, {DefaultTabBar, } from 'react-native-scrollable-tab-view';
+import {Icon,ListItem} from 'react-native-elements';
+import ScrollableTabView, {DefaultTabBar,} from 'react-native-scrollable-tab-view';
+import InterLoaded from './inter_loaded';
+import InterUnload from './inter_unload';
 
 export default class inter extends Component {
     constructor(props) {
@@ -20,23 +22,46 @@ export default class inter extends Component {
                         <Icon type="foundation" name='arrow-left'
                               color="#FFFFFF" underlayColor="#444353"
                               onPress={() => this.props.navigator.pop()}/>
-                        <Text style={{flex:1,textAlign: 'center',color:'#FFFFFF'}}>112233</Text>
+                        <Text style={{flex:1,textAlign: 'center',color:'#FFFFFF'}}>接口加载(20170115)</Text>
                         <Icon type="foundation" name='calendar'
                               color="#FFFFFF" underlayColor="#444353"
                               onPress={() => {}}/>
                     </View>
                 </View>
                 <View style={styles.abody}>
-                    <ScrollableTabView initialPage={2} renderTabBar={() => <DefaultTabBar />}>
-                        <Text tabLabel='Tab #1'>My</Text>
-                        <Text tabLabel='Tab #2'>favorite</Text>
-                        <Text tabLabel='Tab #3'>project</Text>
-                        <Text tabLabel='Tab #4'>favorite</Text>
-                        <Text tabLabel='Tab #5'>project</Text>
+                    <ScrollableTabView renderTabBar={() => <DefaultTabBar />}
+                                       tabBarBackgroundColor="#444353"
+                                       tabBarInactiveTextColor="#FFFFFF"
+                                       tabBarActiveTextColor="#00BFBE"
+                                       tabBarUnderlineStyle={{backgroundColor:'#00BFBE'}}>
+                        <View tabLabel="已加载接口明细" containerStyle={styles.tabView}>
+                            <InterLoaded
+
+                                renderRow={(rowData) => {
+                                    return (
+                                        <ListItem
+                                            title={rowData+"xxxxxxxx"}
+                                            subtitle={rowData+"yyyyyyyyy"}
+                                            hideChevron
+                                        />
+                                    );
+                                }}
+                            />
+                        </View>
+                        <View tabLabel="未加载接口明细" style={styles.tabView}>
+                            <InterUnload
+                                renderRow={(rowData) => {
+                                    return (
+                                        <ListItem
+                                            title={rowData+"aaaaaaaaaa"}
+                                            subtitle={rowData+"bbbbbbbb"}
+                                            hideChevron
+                                        />
+                                    );
+                                }}
+                            />
+                        </View>
                     </ScrollableTabView>
-
-
-
                 </View>
             </View>
         )
@@ -51,7 +76,7 @@ const styles = StyleSheet.create({
     },
     aheader: {
         /*height: 200,*/
-        padding:10,
+        padding: 10,
         backgroundColor: '#444353'
     },
     abody: {
@@ -63,5 +88,8 @@ const styles = StyleSheet.create({
         fontSize: 10,
         color: '#86939E',
         textAlign: 'center'
+    },
+    tabView: {
+        flex: 1,
     }
 });

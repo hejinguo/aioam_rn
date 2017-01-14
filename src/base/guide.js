@@ -22,7 +22,7 @@ class guide extends Component {
             <Navigator
                 initialRoute={defaultRoute}
                 renderScene={this._renderScene}
-                configureScene={(route, routeStack) => Navigator.SceneConfigs.FloatFromRight}//FloatFromRight,HorizontalSwipeJump
+                configureScene={(route, routeStack) => Navigator.SceneConfigs.PushFromRight}//FloatFromRight,HorizontalSwipeJump
             />
         );
     }
