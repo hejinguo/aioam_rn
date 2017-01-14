@@ -35,11 +35,11 @@ export default class login extends Component {
                 </View>
                 <View style={styles.abody}>
                     <FormLabel labelStyle={styles.formlabel}>工号</FormLabel>
-                    <FormInput placeholder="请输入工号" value={this.state.loginCode} placeholderTextColor="#444354"/>
+                    <FormInput inputStyle={styles.forminput} placeholder="请输入工号" value={this.state.loginCode} placeholderTextColor="#A5A5A5"/>
                     <FormLabel labelStyle={styles.formlabel}>密码</FormLabel>
-                    <FormInput placeholder="请输入密码" secureTextEntry placeholderTextColor="#444354"/>
+                    <FormInput inputStyle={styles.forminput} placeholder="请输入密码" secureTextEntry placeholderTextColor="#A5A5A5"/>
                     <FormLabel labelStyle={styles.formlabel}>验证码</FormLabel>
-                    <FormInput placeholder="请输入验证码" placeholderTextColor="#444354"/>
+                    <FormInput inputStyle={styles.forminput} placeholder="请输入验证码" placeholderTextColor="#A5A5A5"/>
                     <TouchableOpacity style={styles.sendmark} onPress={this._handleLogin.bind(this)}>
                         <Text style={{color:'#FFFFFF'}}>获取验证码</Text>
                     </TouchableOpacity>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     acontainer: {
         flex: 1,
         alignItems: 'stretch',
-        backgroundColor: '#252932'
+        backgroundColor: '#444353'
     },
     aheader: {
         flex: 1,
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
         color: '#86939E'
     },
     forminput: {
-        borderBottomWidth: 1,
-        borderBottomColor: '#86939E'
+        /*borderBottomWidth: 1,*/
+        color: '#86939E'
     }
 });
