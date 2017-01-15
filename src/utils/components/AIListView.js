@@ -3,8 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {Alert, Text, View, ListView,RefreshControl, StyleSheet} from 'react-native';
-import {Icon, List} from 'react-native-elements';
+import {Alert, Text, View, ListView,RefreshControl, InteractionManager,StyleSheet} from 'react-native';
 import util from '../util';
 
 var paramData = { opTime: '20170114', pageNo: 1, pageSize: 10, total: 10 };
@@ -20,11 +19,13 @@ export default class AIListView extends Component {
         };
         this._refreshData = this._refreshData.bind(this);
         this._endLoadMore = this._endLoadMore.bind(this);
-        this._data = [];//缓存页面数据
+        this._data = [];//缓存页面列表数据
     }
 
     componentDidMount() {
-        this._fetchData();
+        InteractionManager.runAfterInteractions(()=>{
+            this._fetchData();
+        });
     }
 
     _fetchData() {
@@ -44,6 +45,8 @@ export default class AIListView extends Component {
             dataSource: this.state.dataSource.cloneWithRows([]),
             loaded: false
         });
+        this._data = [];
+        paramData.pageNo = 1;
         this._fetchData();
     }
     _endLoadMore() {

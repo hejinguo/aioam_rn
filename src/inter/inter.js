@@ -41,6 +41,7 @@ export default class inter extends Component {
                                 renderRow={(item) => {
                                     return (
                                         <ListItem
+                                            key={item.tabname}
                                             title={item.tabname}
                                             subtitle={
                                                 <View style={{flexDirection:'row'}}>
@@ -62,6 +63,7 @@ export default class inter extends Component {
                                 renderRow={(item) => {
                                     return (
                                         <ListItem
+                                            key={item.tabname}
                                             title={item.tabname}
                                             subtitle={
                                                 <View style={{flexDirection:'row'}}>

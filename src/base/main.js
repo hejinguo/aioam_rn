@@ -15,7 +15,6 @@ export default class main extends Component {
     render() {
         return (
             <View style={styles.acontainer}>
-                <StatusBar backgroundColor="#444353"/>
                 <View style={styles.aheader}>
                     <View style={{flexDirection:'row'}}>
                         <Icon type="foundation" name='address-book'

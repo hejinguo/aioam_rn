@@ -16,7 +16,7 @@ function ajax(url, params, onSuccess, onError, onComplete) {
     AsyncStorage.getItem("LOGIN_TOKEN", function (error, result) {
         params.loginToken = result || '';
         var paramBody = "";
-        for (var key in params) {
+        for (let key in params) {
             paramBody += ("&" + key + "=" + params[key]);
         }
         paramBody = paramBody.substring(1);

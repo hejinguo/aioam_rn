@@ -65,7 +65,6 @@ export default class login extends Component {
     render() {
         return (
             <View style={styles.acontainer}>
-                <StatusBar backgroundColor="#444353"/>
                 <View style={styles.aheader}>
                     <Text style={{color:'#00BFBE',fontSize:16}}>
                         ESOP+运营宝
@@ -138,6 +137,7 @@ const styles = StyleSheet.create({
         color: '#86939E'
     },
     forminput: {
-        color: '#86939E'
+        color: '#86939E',
+        /*borderBottomWidth:StyleSheet.hairlineWidth*/
     }
 });

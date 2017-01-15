@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {AppRegistry, Navigator} from 'react-native';
+import {AppRegistry, Navigator,View,StatusBar} from 'react-native';
 import login from './login';
 
 const defaultRoute = {
@@ -20,11 +20,14 @@ class guide extends Component {
 
     render() {
         return (
-            <Navigator
-                initialRoute={defaultRoute}
-                renderScene={this._renderScene}
-                configureScene={(route, routeStack) => Navigator.SceneConfigs.PushFromRight}//FloatFromRight,HorizontalSwipeJump
-            />
+            <View style={{flex:1}}>
+                <StatusBar backgroundColor="#444353"/>
+                <Navigator
+                    initialRoute={defaultRoute}
+                    renderScene={this._renderScene}
+                    configureScene={(route, routeStack) => Navigator.SceneConfigs.PushFromRight}//FloatFromRight,HorizontalSwipeJump
+                />
+            </View>
         );
     }
 }
