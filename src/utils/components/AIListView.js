@@ -1,13 +1,13 @@
 /**
- * Created by hejg on 2017/1/14.
+ * Created by hejg on 2017/1/15.
  */
 
 import React, {Component} from 'react';
-import {Alert, Text, View, ListView, RefreshControl, StyleSheet} from 'react-native';
+import {Alert, Text, View, ListView,RefreshControl, StyleSheet} from 'react-native';
 import {Icon, List} from 'react-native-elements';
+import util from '../util';
 
-
-export default class InterUnload extends Component {
+export default class InterLoaded extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -23,19 +23,16 @@ export default class InterUnload extends Component {
         this._fetchData();
     }
 
-    _fetchData() {//公共组件，URL,和参数通过参数传递进来
-        // fetch(REQUEST_URL)
-        //     .then((response) => response.json())
-        //     .then((responseData) => {
-        //         // 注意，这里使用了this关键字，为了保证this在调用时仍然指向当前组件，我们需要对其进行“绑定”操作
-        //         this.setState({
-        //             dataSource: this.state.dataSource.cloneWithRows(responseData.movies),
-        //             loaded: true,
-        //         });
-        //     });
-        this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '010', '011']),
-            loaded: true
+    _fetchData() {
+        let paramData = { opTime: '20170114', pageNo: 1, pageSize: 10, total: 10 };
+        var that = this;
+        util.ajax(this.props.remoteAddr, paramData, function (data) {
+            if (data.state) {
+                that.setState({
+                    dataSource: that.state.dataSource.cloneWithRows(data.info.rows || []),
+                    loaded: true
+                });
+            }
         });
     }
 
@@ -50,7 +47,7 @@ export default class InterUnload extends Component {
                     <ListView
                         dataSource={this.state.dataSource}
                         renderRow={this.props.renderRow}
-                        onEndReached={console.log("2222")}
+                        onEndReached={console.log("11111")}
                         refreshControl={
                             <RefreshControl
                                 refreshing={false}

@@ -5,7 +5,7 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, View, Alert, Text, TouchableOpacity,StatusBar} from 'react-native';
+import {StyleSheet, View, Alert, Text, TouchableOpacity, StatusBar,AsyncStorage} from 'react-native';
 import {Button, FormLabel, FormInput, Icon} from 'react-native-elements';
 import main from './main';
 import util from '../utils/util';
@@ -14,27 +14,52 @@ export default class login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loginCode: 'ai_hejinguo',
+            loginCode: '',
             password: '',
             loginMark: ''
         };
+
+    }
+    componentWillMount(){
+        this._validateLogined();
     }
 
-    _handleLogin() {
-        // AsyncStorage
-        util.ajax('base/getMark',{loginCode:this.state.loginCode},function(data){
-            if(data.state){
-                Alert.alert(
-                    'Alert Title',
-                    '验证码发送至'+data.info+',请查收.',
-                )
+    _validateLogined() {
+        var that = this;
+        AsyncStorage.getItem("LOGIN_TOKEN",function (error,result) {
+            if(result){
+                that.props.navigator.replace({
+                    component: main
+                })
             }
         });
-
-
-        // this.props.navigator.replace({
-        //     component: main
-        // })
+    }
+    _sendLoginMark() {
+        if(this.state.loginCode){
+            util.ajax('base/getMark', {loginCode: this.state.loginCode}, function (data) {
+                if (data.state) {
+                    Alert.alert('提示','验证码发送至' + data.info + ',请查收.');
+                }
+            });
+        }else{
+            Alert.alert('提示','请输入工号后继续.');
+        }
+    }
+    _handleLogin() {
+        var that = this;
+        if(this.state.loginCode && this.state.password && this.state.loginMark){
+            util.ajax('base/login',{loginCode:this.state.loginCode,loginPassword:this.state.password,lastLoginMark:this.state.loginMark},function(data){
+                if(data.state){
+                    AsyncStorage.setItem("LOGIN_CODE",data.info.loginCode);
+                    AsyncStorage.setItem("LOGIN_TOKEN",data.info.loginToken);
+                    that.props.navigator.replace({
+                        component: main
+                    })
+                }
+            });
+        }else{
+            Alert.alert('提示','请完整输入信息后继续.');
+        }
     }
 
     render() {
@@ -48,12 +73,26 @@ export default class login extends Component {
                 </View>
                 <View style={styles.abody}>
                     <FormLabel labelStyle={styles.formlabel}>工号</FormLabel>
-                    <FormInput inputStyle={styles.forminput} placeholder="请输入工号" placeholderTextColor="#A5A5A5"/>
+                    <FormInput inputStyle={styles.forminput}
+                               placeholder="请输入工号"
+                               placeholderTextColor="#A5A5A5"
+                               onChangeText={(loginCodeText) => this.setState({loginCode:loginCodeText})}
+                    />
                     <FormLabel labelStyle={styles.formlabel}>密码</FormLabel>
-                    <FormInput inputStyle={styles.forminput} placeholder="请输入密码" secureTextEntry placeholderTextColor="#A5A5A5"/>
+                    <FormInput inputStyle={styles.forminput}
+                               placeholder="请输入密码"
+                               secureTextEntry
+                               placeholderTextColor="#A5A5A5"
+                               onChangeText={(passwordText) => this.setState({password:passwordText})}
+                    />
                     <FormLabel labelStyle={styles.formlabel}>验证码</FormLabel>
-                    <FormInput inputStyle={styles.forminput} placeholder="请输入验证码" placeholderTextColor="#A5A5A5"/>
-                    <TouchableOpacity style={styles.sendmark} onPress={this._handleLogin.bind(this)}>
+                    <FormInput inputStyle={styles.forminput}
+                               placeholder="请输入验证码"
+                               placeholderTextColor="#A5A5A5"
+                               onChangeText={(loginMarkText) => this.setState({loginMark:loginMarkText})}
+                    />
+                    <TouchableOpacity style={styles.sendmark}
+                                      onPress={this._sendLoginMark.bind(this)}>
                         <Text style={{color:'#FFFFFF'}}>获取验证码</Text>
                     </TouchableOpacity>
                     <Button
@@ -99,7 +138,6 @@ const styles = StyleSheet.create({
         color: '#86939E'
     },
     forminput: {
-        /*borderBottomWidth: 1,*/
         color: '#86939E'
     }
 });

@@ -10,9 +10,6 @@ import inter from '../inter/inter';
 export default class main extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            selectedIndex: 2
-        };
     }
 
     render() {

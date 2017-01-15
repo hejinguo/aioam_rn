@@ -6,8 +6,7 @@ import React, {Component} from 'react';
 import {Alert, Text, View, StyleSheet,StatusBar} from 'react-native';
 import {Icon,ListItem} from 'react-native-elements';
 import ScrollableTabView, {DefaultTabBar,} from 'react-native-scrollable-tab-view';
-import InterLoaded from './inter_loaded';
-import InterUnload from './inter_unload';
+import AIListView from '../utils/components/AIListView';
 
 export default class inter extends Component {
     constructor(props) {
@@ -37,12 +36,20 @@ export default class inter extends Component {
                                        tabBarActiveTextColor="#00BFBE"
                                        tabBarUnderlineStyle={{backgroundColor:'#00BFBE'}}>
                         <View tabLabel="已加载接口明细" containerStyle={styles.tabView}>
-                            <InterLoaded
-                                renderRow={(rowData) => {
+                            <AIListView
+                                remoteAddr="inter/getLoadded"
+                                renderRow={(item) => {
                                     return (
                                         <ListItem
-                                            title={rowData+"xxxxxxxx"}
-                                            subtitle={rowData+"yyyyyyyyy"}
+                                            title={item.tabname}
+                                            subtitle={
+                                                <View style={{flexDirection:'row'}}>
+                                                    <View><Text>{item.interCode}</Text></View>
+                                                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}><Text>{item.interTypeName}</Text></View>
+                                                    <View><Text>{item.triggerTime ? item.triggerTime:""}</Text></View>
+                                                </View>
+                                            }
+                                            onPress={() => {console.log(item.tabname)}}
                                             hideChevron
                                         />
                                     );
@@ -50,12 +57,20 @@ export default class inter extends Component {
                             />
                         </View>
                         <View tabLabel="未加载接口明细" style={styles.tabView}>
-                            <InterUnload
-                                renderRow={(rowData) => {
+                            <AIListView
+                                remoteAddr="inter/getUnLoadded"
+                                renderRow={(item) => {
                                     return (
                                         <ListItem
-                                            title={rowData+"aaaaaaaaaa"}
-                                            subtitle={rowData+"bbbbbbbb"}
+                                            title={item.tabname}
+                                            subtitle={
+                                                <View style={{flexDirection:'row'}}>
+                                                    <View><Text>{item.interCode}</Text></View>
+                                                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}><Text>{item.interTypeName}</Text></View>
+                                                    <View><Text>{item.triggerTime ? item.triggerTime:""}</Text></View>
+                                                </View>
+                                            }
+                                            onPress={() => {console.log(item.tabname)}}
                                             hideChevron
                                         />
                                     );
