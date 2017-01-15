@@ -5,29 +5,42 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, View, Alert, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Alert, Text, TouchableOpacity,StatusBar} from 'react-native';
 import {Button, FormLabel, FormInput, Icon} from 'react-native-elements';
 import main from './main';
+import util from '../utils/util';
 
 export default class login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loginCode: '',
+            loginCode: 'ai_hejinguo',
             password: '',
             loginMark: ''
         };
     }
 
     _handleLogin() {
-        this.props.navigator.replace({
-            component: main
-        })
+        // AsyncStorage
+        util.ajax('base/getMark',{loginCode:this.state.loginCode},function(data){
+            if(data.state){
+                Alert.alert(
+                    'Alert Title',
+                    '验证码发送至'+data.info+',请查收.',
+                )
+            }
+        });
+
+
+        // this.props.navigator.replace({
+        //     component: main
+        // })
     }
 
     render() {
         return (
             <View style={styles.acontainer}>
+                <StatusBar backgroundColor="#444353"/>
                 <View style={styles.aheader}>
                     <Text style={{color:'#00BFBE',fontSize:16}}>
                         ESOP+运营宝
@@ -35,7 +48,7 @@ export default class login extends Component {
                 </View>
                 <View style={styles.abody}>
                     <FormLabel labelStyle={styles.formlabel}>工号</FormLabel>
-                    <FormInput inputStyle={styles.forminput} placeholder="请输入工号" value={this.state.loginCode} placeholderTextColor="#A5A5A5"/>
+                    <FormInput inputStyle={styles.forminput} placeholder="请输入工号" placeholderTextColor="#A5A5A5"/>
                     <FormLabel labelStyle={styles.formlabel}>密码</FormLabel>
                     <FormInput inputStyle={styles.forminput} placeholder="请输入密码" secureTextEntry placeholderTextColor="#A5A5A5"/>
                     <FormLabel labelStyle={styles.formlabel}>验证码</FormLabel>

@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {Alert, Text, View, StyleSheet} from 'react-native';
+import {Alert, Text, View, StyleSheet,StatusBar} from 'react-native';
 import {Icon,ListItem} from 'react-native-elements';
 import ScrollableTabView, {DefaultTabBar,} from 'react-native-scrollable-tab-view';
 import InterLoaded from './inter_loaded';
@@ -17,6 +17,7 @@ export default class inter extends Component {
     render() {
         return (
             <View style={styles.acontainer}>
+                <StatusBar backgroundColor="#444353"/>
                 <View style={styles.aheader}>
                     <View style={{flexDirection:'row'}}>
                         <Icon type="foundation" name='arrow-left'
@@ -30,13 +31,13 @@ export default class inter extends Component {
                 </View>
                 <View style={styles.abody}>
                     <ScrollableTabView renderTabBar={() => <DefaultTabBar />}
+                                       locked
                                        tabBarBackgroundColor="#444353"
                                        tabBarInactiveTextColor="#FFFFFF"
                                        tabBarActiveTextColor="#00BFBE"
                                        tabBarUnderlineStyle={{backgroundColor:'#00BFBE'}}>
                         <View tabLabel="已加载接口明细" containerStyle={styles.tabView}>
                             <InterLoaded
-
                                 renderRow={(rowData) => {
                                     return (
                                         <ListItem

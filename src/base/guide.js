@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {AppRegistry,Navigator} from 'react-native';
+import {AppRegistry, Navigator} from 'react-native';
 import login from './login';
 
 const defaultRoute = {
@@ -14,9 +14,10 @@ class guide extends Component {
     _renderScene(route, navigator) {//指定要导航到的目标Component
         let Component = route.component;
         return (
-            <Component {...route.params} navigator={navigator} />
+            <Component {...route.params} navigator={navigator}/>
         );
     }
+
     render() {
         return (
             <Navigator

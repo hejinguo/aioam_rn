@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {Alert, Text, View, StyleSheet, TouchableHighlight} from 'react-native';
+import {Alert, Text, View, StyleSheet, TouchableHighlight,StatusBar} from 'react-native';
 import {SearchBar, Grid, Row, Col, Icon} from 'react-native-elements';
 import inter from '../inter/inter';
 
@@ -18,6 +18,7 @@ export default class main extends Component {
     render() {
         return (
             <View style={styles.acontainer}>
+                <StatusBar backgroundColor="#444353"/>
                 <View style={styles.aheader}>
                     <View style={{flexDirection:'row'}}>
                         <Icon type="foundation" name='address-book'
