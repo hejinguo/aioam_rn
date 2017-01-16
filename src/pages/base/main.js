@@ -18,14 +18,14 @@ export default class main extends Component {
                 <View style={styles.aheader}>
                     <View style={{flexDirection:'row'}}>
                         <Icon type="foundation" name='address-book'
-                              color="#FFFFFF" underlayColor="#444353" iconStyle={{marginLeft:10}}
+                              color="#FFFFFF" underlayColor="#3D455F" iconStyle={{marginLeft:10}}
                               onPress={() => {}}/>
                         <SearchBar
-                            containerStyle={{flex:1,backgroundColor: '#444353',borderTopWidth:0,borderBottomWidth:0}}
+                            containerStyle={{flex:1,backgroundColor: '#3D455F',borderTopWidth:0,borderBottomWidth:0}}
                             inputStyle={{backgroundColor:'#FFFFFF'}}
                             placeholder='请输入工号或集团的关键字检索...'/>
                         <Icon type="foundation" name='calendar'
-                              color="#FFFFFF" underlayColor="#444353" iconStyle={{marginRight:10}}
+                              color="#FFFFFF" underlayColor="#3D455F" iconStyle={{marginRight:10}}
                               onPress={() => {}}/>
                     </View>
                     <View style={styles.carousel}>
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     },
     aheader: {
         height: 200,
-        backgroundColor: '#444353'
+        backgroundColor: '#3D455F'
     },
     abody: {
         flex: 1,

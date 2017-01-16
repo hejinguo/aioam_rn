@@ -8,7 +8,7 @@ import Login from './pages/base/login';
 import Main from './pages/base/main';
 
 
-class guide extends Component {
+export default class Guide extends Component {
     constructor(props) {
         super(props);
     }
@@ -35,7 +35,7 @@ class guide extends Component {
     render() {
         return (
             <View style={styles.root}>
-                <Text>Loading</Text>
+                <Text style={styles.text}>Loading</Text>
             </View>
         );
     }
@@ -44,6 +44,11 @@ class guide extends Component {
 const styles = StyleSheet.create({
     root: {
         flex: 1,
-        backgroundColor: '#444353'
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#3D455F'
+    },
+    text:{
+      color:'#FFFFFF'
     }
 });

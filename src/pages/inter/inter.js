@@ -11,33 +11,37 @@ import AIListView from '../../components/AIListView';
 export default class inter extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            opTime: '20170115'
+        };
     }
 
     render() {
         return (
             <View style={styles.acontainer}>
-                <StatusBar backgroundColor="#444353"/>
+                <StatusBar backgroundColor="#3D455F"/>
                 <View style={styles.aheader}>
                     <View style={{flexDirection:'row'}}>
                         <Icon type="foundation" name='arrow-left'
-                              color="#FFFFFF" underlayColor="#444353"
+                              color="#FFFFFF" underlayColor="#3D455F"
                               onPress={() => this.props.navigator.pop()}/>
                         <Text style={{flex:1,textAlign: 'center',color:'#FFFFFF'}}>接口加载(20170115)</Text>
                         <Icon type="foundation" name='calendar'
-                              color="#FFFFFF" underlayColor="#444353"
+                              color="#FFFFFF" underlayColor="#3D455F"
                               onPress={() => {}}/>
                     </View>
                 </View>
                 <View style={styles.abody}>
                     <ScrollableTabView renderTabBar={() => <DefaultTabBar />}
                                        locked
-                                       tabBarBackgroundColor="#444353"
+                                       tabBarBackgroundColor="#3D455F"
                                        tabBarInactiveTextColor="#FFFFFF"
                                        tabBarActiveTextColor="#00BFBE"
                                        tabBarUnderlineStyle={{backgroundColor:'#00BFBE'}}>
                         <View tabLabel="已加载接口明细" containerStyle={styles.tabView}>
                             <AIListView
                                 remoteAddr="inter/getLoadded"
+                                paramData={{opTime: this.state.opTime, pageNo: 1, pageSize: 10, total: 10}}
                                 renderRow={(item) => {
                                     return (
                                         <ListItem
@@ -60,6 +64,7 @@ export default class inter extends Component {
                         <View tabLabel="未加载接口明细" style={styles.tabView}>
                             <AIListView
                                 remoteAddr="inter/getUnLoadded"
+                                paramData={{opTime: this.state.opTime, pageNo: 1, pageSize: 10, total: 10}}
                                 renderRow={(item) => {
                                     return (
                                         <ListItem
@@ -95,7 +100,7 @@ const styles = StyleSheet.create({
     aheader: {
         /*height: 200,*/
         padding: 10,
-        backgroundColor: '#444353'
+        backgroundColor: '#3D455F'
     },
     abody: {
         flex: 1,

@@ -6,8 +6,6 @@ import React, {Component} from 'react';
 import {Alert, Text, View, ListView,RefreshControl, InteractionManager,StyleSheet} from 'react-native';
 import util from '../utils/util';
 
-var paramData = { opTime: '20170114', pageNo: 1, pageSize: 10, total: 10 };
-
 export default class AIListView extends Component {
     constructor(props) {
         super(props);
@@ -17,6 +15,7 @@ export default class AIListView extends Component {
             }),
             loaded: false
         };
+        this._paramData = this.props.paramData;
         this._refreshData = this._refreshData.bind(this);
         this._endLoadMore = this._endLoadMore.bind(this);
         this._data = [];//缓存页面列表数据
@@ -30,7 +29,7 @@ export default class AIListView extends Component {
 
     _fetchData() {
         var that = this;
-        util.ajax(this.props.remoteAddr, paramData, function (data) {
+        util.ajax(this.props.remoteAddr, this._paramData, function (data) {
             if (data.state) {
                 that._data = that._data.concat(data.info.rows || []);
                 that.setState({
@@ -46,12 +45,12 @@ export default class AIListView extends Component {
             loaded: false
         });
         this._data = [];
-        paramData.pageNo = 1;
+        this._paramData.pageNo = 1;
         this._fetchData();
     }
     _endLoadMore() {
         if(this.state.loaded){
-            paramData.pageNo++;
+            this._paramData.pageNo++;
             this._fetchData();
         }
     }

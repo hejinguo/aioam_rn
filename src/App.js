@@ -3,14 +3,36 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Navigator, View, StatusBar} from 'react-native';
+import {StyleSheet, Navigator, View, StatusBar, BackAndroid, Platform} from 'react-native';
 import Guide from './Guide';
 
 const defaultRoute = {
     component: Guide
 };
 
-class guide extends Component {
+export default class APP extends Component {
+    componentWillMount() {
+        if (Platform.OS === 'android') {//__ANDROID__
+            BackAndroid.addEventListener('hardwareBackPress', this._onBackAndroid);
+        }
+    }
+
+    componentWillUnmount() {
+        if (Platform.OS === 'android') {//__ANDROID__
+            BackAndroid.removeEventListener('hardwareBackPress', this._onBackAndroid);
+        }
+    }
+
+    _onBackAndroid = () => {
+        const nav = this.navigator;
+        const routers = nav.getCurrentRoutes();
+        if (routers.length > 1) {
+            nav.pop();
+            return true;
+        }
+        return false;
+    };
+
     _renderScene(route, navigator) {//指定要导航到的目标Component
         let TargetComponent = route.component;
         return (
@@ -25,6 +47,7 @@ class guide extends Component {
                 <Navigator
                     initialRoute={defaultRoute}
                     renderScene={this._renderScene}
+                    ref={(ref) => {this.navigator = ref;}}
                     configureScene={(route, routeStack) => Navigator.SceneConfigs.PushFromRight}//FloatFromRight,HorizontalSwipeJump
                 />
             </View>

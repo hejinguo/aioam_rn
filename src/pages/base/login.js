@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     acontainer: {
         flex: 1,
         alignItems: 'stretch',
-        backgroundColor: '#444353'
+        backgroundColor: '#3D455F'
     },
     aheader: {
         flex: 1,
