@@ -9,7 +9,7 @@ import ScrollableTabView, {DefaultTabBar,} from 'react-native-scrollable-tab-vie
 import AIPageList from '../../components/AIPageList';
 import util from '../../utils/util';
 
-export default class report extends Component {
+export default class task extends Component {
     constructor(props) {
         super(props);
         this.state = {

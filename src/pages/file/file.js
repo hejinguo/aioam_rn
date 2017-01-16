@@ -3,16 +3,33 @@
  */
 
 import React, {Component} from 'react';
-import {Alert, Text, View, StyleSheet, StatusBar, DatePickerAndroid} from 'react-native';
-import {Icon, ListItem} from 'react-native-elements';
+import {Alert, Text, View, StyleSheet, InteractionManager} from 'react-native';
+import {Icon, List,ListItem} from 'react-native-elements';
 import util from '../../utils/util';
 
-export default class report extends Component {
+export default class file extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            fileItems:[]
         };
+    }
+
+    componentDidMount() {
+        InteractionManager.runAfterInteractions(() => {
+            this._fetchData();
+        });
+    }
+
+    _fetchData() {
+        var _this = this;
+        util.ajax('file/list', {}, function (data) {
+            if (data.state) {
+                _this.setState({
+                    fileItems:data.info
+                });
+            }
+        });
     }
 
     render() {
@@ -28,9 +45,23 @@ export default class report extends Component {
                     </View>
                 </View>
                 <View style={styles.abody}>
-
-
-
+                    <List containerStyle={{marginTop:0}}>
+                        {
+                            this.state.fileItems.map((item,i) => {
+                                return <ListItem
+                                    key={item.name}
+                                    title={item.name}
+                                    subtitle={
+                                        <View style={{flexDirection:'row'}}>
+                                            <View style={{flex:1}}><Text>大小:{item.size}</Text></View>
+                                            <View><Text>{item.directory ? '目录' : '文件'}</Text></View>
+                                        </View>
+                                    }
+                                    //onPress={() => {console.log(item.tabname)}}
+                                    hideChevron/>;
+                            })
+                        }
+                    </List>
 
                 </View>
             </View>
