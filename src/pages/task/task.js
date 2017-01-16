@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {Alert, Text, View, StyleSheet, DatePickerAndroid} from 'react-native';
+import {Alert, Text, View, StyleSheet, DatePickerAndroid,Modal,TouchableOpacity} from 'react-native';
 import {Icon, ListItem} from 'react-native-elements';
 import ScrollableTabView, {DefaultTabBar,} from 'react-native-scrollable-tab-view';
 import AIPageList from '../../components/AIPageList';
@@ -13,8 +13,13 @@ export default class task extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            opTime: util.fmtDateTime(new Date((new Date() / 1000 - 86400) * 1000), '')
+            opTime: util.fmtDateTime(new Date((new Date() / 1000 - 86400) * 1000), ''),
+            modalVisible: false
         };
+    }
+
+    _setModalVisible(visible) {
+        this.setState({modalVisible: visible});
     }
 
     async _onPressChangeDate() {
@@ -80,7 +85,7 @@ export default class task extends Component {
                                                     </View>
                                                 </View>
                                             }
-                                            //onPress={() => {console.log(item.tabname)}}
+                                            onPress={() => {this._setModalVisible(true)}}
                                             hideChevron
                                         />
                                     );
@@ -105,7 +110,7 @@ export default class task extends Component {
                                                     </View>
                                                 </View>
                                             }
-                                            //onPress={() => {console.log(item.tabname)}}
+                                            onPress={() => {this._setModalVisible(true)}}
                                             hideChevron
                                         />
                                     );
@@ -130,7 +135,7 @@ export default class task extends Component {
                                                     </View>
                                                 </View>
                                             }
-                                            //onPress={() => {console.log(item.tabname)}}
+                                            onPress={() => {this._setModalVisible(true)}}
                                             hideChevron
                                         />
                                     );
@@ -139,6 +144,23 @@ export default class task extends Component {
                         </View>
                     </ScrollableTabView>
                 </View>
+
+                <Modal animationType="none"
+                       transparent={true}
+                       onRequestClose={() => {}}
+                       visible={this.state.modalVisible}>
+                    <View style={{flex:1}}>
+                        <TouchableOpacity style={styles.modalTouchable}
+                            onPress={() => {this._setModalVisible(false)}}>
+                            <Text></Text>
+                        </TouchableOpacity>
+                        <View style={styles.modalView}>
+                            <TouchableOpacity onPress={() => {this._setModalVisible(false)}}>
+                                <Text>112233445566</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
             </View>
         )
     }
@@ -151,7 +173,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF'
     },
     aheader: {
-        /*height: 200,*/
+        height: 44,
         padding: 10,
         backgroundColor: '#3D455F'
     },
@@ -167,5 +189,18 @@ const styles = StyleSheet.create({
     },
     tabView: {
         flex: 1,
+    },
+    modalTouchable: {
+        flex:1,
+        backgroundColor:'#3D455F88'
+    },
+    modalView: {
+        borderTopWidth:StyleSheet.hairlineWidth,
+        backgroundColor:'#FFFFFF',
+        position:'absolute',
+        bottom:0,
+        left:0,
+        right:0,
+        height:120
     }
 });

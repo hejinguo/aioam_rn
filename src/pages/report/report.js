@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF'
     },
     aheader: {
-        /*height: 200,*/
+        height: 44,
         padding: 10,
         backgroundColor: '#3D455F'
     },

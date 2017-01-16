@@ -43,7 +43,7 @@ export default class APP extends Component {
     render() {
         return (
             <View style={styles.root}>
-                <StatusBar backgroundColor="#444353"/>
+                <StatusBar backgroundColor="#3D455F"/>
                 <Navigator
                     initialRoute={defaultRoute}
                     renderScene={this._renderScene}

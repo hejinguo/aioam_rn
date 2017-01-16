@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {Alert, Text, View, StyleSheet, InteractionManager} from 'react-native';
+import {Alert, Text, View, StyleSheet, InteractionManager,Clipboard} from 'react-native';
 import {Icon, List,ListItem} from 'react-native-elements';
 import util from '../../utils/util';
 
@@ -45,6 +45,9 @@ export default class file extends Component {
                     </View>
                 </View>
                 <View style={styles.abody}>
+                    <View>
+                        <Text style={{textAlign:'center',color:'#999999',fontSize:12}}>长按复制文件下载地址到剪贴板</Text>
+                    </View>
                     <List containerStyle={{marginTop:0}}>
                         {
                             this.state.fileItems.map((item,i) => {
@@ -57,7 +60,7 @@ export default class file extends Component {
                                             <View><Text>{item.directory ? '目录' : '文件'}</Text></View>
                                         </View>
                                     }
-                                    //onPress={() => {console.log(item.tabname)}}
+                                    onLongPress={() => {Clipboard.setString(item.name);Alert.alert('提示','已复制文件下载地址到剪贴板.')}}
                                     hideChevron/>;
                             })
                         }
@@ -76,7 +79,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF'
     },
     aheader: {
-        /*height: 200,*/
+        height: 44,
         padding: 10,
         backgroundColor: '#3D455F'
     },
