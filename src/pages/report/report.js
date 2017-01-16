@@ -1,5 +1,5 @@
 /**
- * Created by hejg on 2017/1/14.
+ * Created by hejg on 2017/1/16.
  */
 
 import React, {Component} from 'react';
@@ -9,7 +9,7 @@ import ScrollableTabView, {DefaultTabBar,} from 'react-native-scrollable-tab-vie
 import AIPageList from '../../components/AIPageList';
 import util from '../../utils/util';
 
-export default class inter extends Component {
+export default class report extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -49,7 +49,7 @@ export default class inter extends Component {
                         <Icon type="foundation" name='arrow-left'
                               color="#FFFFFF" underlayColor="#3D455F"
                               onPress={() => this.props.navigator.pop()}/>
-                        <Text style={{flex:1,textAlign: 'center',color:'#FFFFFF'}}>接口加载({this.state.opTime})</Text>
+                        <Text style={{flex:1,textAlign: 'center',color:'#FFFFFF'}}>报表加载({this.state.opTime})</Text>
                         <Icon type="foundation" name='calendar'
                               color="#FFFFFF" underlayColor="#3D455F"
                               onPress={this._onPressChangeDate.bind(this)}/>
@@ -62,20 +62,23 @@ export default class inter extends Component {
                                        tabBarInactiveTextColor="#FFFFFF"
                                        tabBarActiveTextColor="#00BFBE"
                                        tabBarUnderlineStyle={{backgroundColor:'#00BFBE'}}>
-                        <View tabLabel="已加载接口明细" containerStyle={styles.tabView}>
+                        <View tabLabel="已生成报表明细" containerStyle={styles.tabView}>
                             <AIPageList
-                                remoteAddr="inter/getLoadded"
+                                remoteAddr="report/getCheck/1"
                                 paramData={{opTime: this.state.opTime}}
                                 renderRow={(item) => {
                                     return (
                                         <ListItem
-                                            key={item.tabname}
-                                            title={item.tabname}
+                                            key={item.tableName}
+                                            title={item.taskName}
                                             subtitle={
-                                                <View style={{flexDirection:'row'}}>
-                                                    <View><Text>{item.interCode}</Text></View>
-                                                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}><Text>{item.interTypeName}</Text></View>
-                                                    <View><Text>{item.triggerTime ? item.triggerTime:""}</Text></View>
+                                                <View>
+                                                    <View><Text>{item.tableName}</Text></View>
+                                                    <View style={{flexDirection:'row'}}>
+                                                        <View><Text>{item.taskCode}</Text></View>
+                                                        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}><Text>{item.tabRowNum}</Text></View>
+                                                        <View><Text>{item.ifTabExit==1?'已生成':'未生成'}</Text></View>
+                                                    </View>
                                                 </View>
                                             }
                                             //onPress={() => {console.log(item.tabname)}}
@@ -85,20 +88,23 @@ export default class inter extends Component {
                                 }}
                             />
                         </View>
-                        <View tabLabel="未加载接口明细" style={styles.tabView}>
+                        <View tabLabel="未生成报表明细" style={styles.tabView}>
                             <AIPageList
-                                remoteAddr="inter/getUnLoadded"
+                                remoteAddr="report/getCheck/0"
                                 paramData={{opTime: this.state.opTime}}
                                 renderRow={(item) => {
                                     return (
                                         <ListItem
-                                            key={item.tabname}
-                                            title={item.tabname}
+                                            key={item.tableName}
+                                            title={item.taskName}
                                             subtitle={
-                                                <View style={{flexDirection:'row'}}>
-                                                    <View><Text>{item.interCode}</Text></View>
-                                                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}><Text>{item.interTypeName}</Text></View>
-                                                    <View><Text>{item.triggerTime ? item.triggerTime:""}</Text></View>
+                                                <View>
+                                                    <View><Text>{item.tableName}</Text></View>
+                                                    <View style={{flexDirection:'row'}}>
+                                                        <View><Text>{item.taskCode}</Text></View>
+                                                        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}><Text>{item.tabRowNum}</Text></View>
+                                                        <View><Text>{item.ifTabExit==1?'已生成':'未生成'}</Text></View>
+                                                    </View>
                                                 </View>
                                             }
                                             //onPress={() => {console.log(item.tabname)}}

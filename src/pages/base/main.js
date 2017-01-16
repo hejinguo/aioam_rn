@@ -6,6 +6,9 @@ import React, {Component} from 'react';
 import {Alert, Text, View, StyleSheet, TouchableHighlight,StatusBar} from 'react-native';
 import {SearchBar, Grid, Row, Col, Icon} from 'react-native-elements';
 import inter from '../inter/inter';
+import report from '../report/report';
+import task from '../task/task';
+import file from '../file/file';
 
 export default class main extends Component {
     constructor(props) {
@@ -40,12 +43,7 @@ export default class main extends Component {
                                 <TouchableHighlight
                                     style={styles.griditem}
                                     underlayColor="#F5F5F5"
-                                    onPress={() => this.props.navigator.push({
-                                        component: inter,
-                                        params:{
-                                            opTime:'20170113'
-                                        }
-                                    })}>
+                                    onPress={() => this.props.navigator.push({component: inter})}>
                                     <View>
                                         <Icon type="font-awesome" name='list-ul' color="#9C26B0"/>
                                         <Text>接口加载</Text>
@@ -56,7 +54,7 @@ export default class main extends Component {
                                 <TouchableHighlight
                                     style={styles.griditem}
                                     underlayColor="#F5F5F5"
-                                    onPress={() => {}}>
+                                    onPress={() => this.props.navigator.push({component: task})}>
                                     <View>
                                         <Icon type="font-awesome" name='wpforms' color="#2096F3"/>
                                         <Text>任务执行</Text>
@@ -67,7 +65,7 @@ export default class main extends Component {
                                 <TouchableHighlight
                                     style={styles.griditem}
                                     underlayColor="#F5F5F5"
-                                    onPress={() => {}}>
+                                    onPress={() => this.props.navigator.push({component: report})}>
                                     <View>
                                         <Icon type="font-awesome" name='bar-chart' color="#009588"/>
                                         <Text>报表加载</Text>
@@ -91,7 +89,7 @@ export default class main extends Component {
                                 <TouchableHighlight
                                     style={styles.griditem}
                                     underlayColor="#F5F5F5"
-                                    onPress={() => {}}>
+                                    onPress={() => this.props.navigator.push({component: file})}>
                                     <View>
                                         <Icon type="font-awesome" name='file-text-o' color="#FFC108"/>
                                         <Text>我的文件</Text>
