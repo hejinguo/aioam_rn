@@ -6,7 +6,7 @@ import React, {Component} from 'react';
 import {Alert, Text, View, StyleSheet,StatusBar} from 'react-native';
 import {Icon,ListItem} from 'react-native-elements';
 import ScrollableTabView, {DefaultTabBar,} from 'react-native-scrollable-tab-view';
-import AIListView from '../utils/components/AIListView';
+import AIListView from '../../components/AIListView';
 
 export default class inter extends Component {
     constructor(props) {

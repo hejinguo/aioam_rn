@@ -4,7 +4,7 @@
 
 import React, {Component} from 'react';
 import {Alert, Text, View, ListView,RefreshControl, InteractionManager,StyleSheet} from 'react-native';
-import util from '../util';
+import util from '../utils/util';
 
 var paramData = { opTime: '20170114', pageNo: 1, pageSize: 10, total: 10 };
 

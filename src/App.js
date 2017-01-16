@@ -3,24 +3,24 @@
  */
 
 import React, {Component} from 'react';
-import {AppRegistry, Navigator,View,StatusBar} from 'react-native';
-import login from './login';
+import {StyleSheet, Navigator, View, StatusBar} from 'react-native';
+import Guide from './Guide';
 
 const defaultRoute = {
-    component: login
+    component: Guide
 };
 
 class guide extends Component {
     _renderScene(route, navigator) {//指定要导航到的目标Component
-        let Component = route.component;
+        let TargetComponent = route.component;
         return (
-            <Component {...route.params} navigator={navigator}/>
+            <TargetComponent {...route.params} navigator={navigator}/>
         );
     }
 
     render() {
         return (
-            <View style={{flex:1}}>
+            <View style={styles.root}>
                 <StatusBar backgroundColor="#444353"/>
                 <Navigator
                     initialRoute={defaultRoute}
@@ -31,4 +31,9 @@ class guide extends Component {
         );
     }
 }
-AppRegistry.registerComponent('aioam', () => guide);
+
+const styles = StyleSheet.create({
+    root: {
+        flex: 1
+    }
+});

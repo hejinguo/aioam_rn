@@ -6,9 +6,9 @@
 
 import React, {Component} from 'react';
 import {StyleSheet, View, Alert, Text, TouchableOpacity, StatusBar,AsyncStorage} from 'react-native';
-import {Button, FormLabel, FormInput, Icon} from 'react-native-elements';
+import {Button, FormLabel, FormInput} from 'react-native-elements';
+import util from '../../utils/util';
 import main from './main';
-import util from '../utils/util';
 
 export default class login extends Component {
     constructor(props) {
