@@ -25,10 +25,10 @@ export default class login extends Component {
     }
 
     _validateLogined() {
-        var that = this;
+        var _this = this;
         AsyncStorage.getItem("LOGIN_TOKEN",function (error,result) {
             if(result){
-                that.props.navigator.replace({
+                _this.props.navigator.replace({
                     component: main
                 })
             }
@@ -46,13 +46,13 @@ export default class login extends Component {
         }
     }
     _handleLogin() {
-        var that = this;
+        var _this = this;
         if(this.state.loginCode && this.state.password && this.state.loginMark){
             util.ajax('base/login',{loginCode:this.state.loginCode,loginPassword:this.state.password,lastLoginMark:this.state.loginMark},function(data){
                 if(data.state){
                     AsyncStorage.setItem("LOGIN_CODE",data.info.loginCode);
                     AsyncStorage.setItem("LOGIN_TOKEN",data.info.loginToken);
-                    that.props.navigator.replace({
+                    _this.props.navigator.replace({
                         component: main
                     })
                 }
@@ -64,9 +64,9 @@ export default class login extends Component {
 
     render() {
         return (
-            <View style={styles.acontainer}>
+            <View style={styles.root}>
                 <View style={styles.aheader}>
-                    <Text style={{color:'#00BFBE',fontSize:16}}>
+                    <Text style={styles.apptitle}>
                         ESOP+运营宝
                     </Text>
                 </View>
@@ -107,7 +107,7 @@ export default class login extends Component {
 }
 
 const styles = StyleSheet.create({
-    acontainer: {
+    root: {
         flex: 1,
         alignItems: 'stretch',
         backgroundColor: '#3D455F'
@@ -126,6 +126,10 @@ const styles = StyleSheet.create({
         fontSize: 10,
         color: '#86939E',
         textAlign: 'center'
+    },
+    apptitle: {
+        color:'#00BFBE',
+        fontSize:16
     },
     sendmark: {
         marginTop: 10,

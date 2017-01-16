@@ -14,9 +14,9 @@ export default class main extends Component {
 
     render() {
         return (
-            <View style={styles.acontainer}>
+            <View style={styles.root}>
                 <View style={styles.aheader}>
-                    <View style={{flexDirection:'row'}}>
+                    <View style={{flexDirection:'row',height:0}}>
                         <Icon type="foundation" name='address-book'
                               color="#FFFFFF" underlayColor="#3D455F" iconStyle={{marginLeft:10}}
                               onPress={() => {}}/>
@@ -154,7 +154,7 @@ export default class main extends Component {
 }
 
 const styles = StyleSheet.create({
-    acontainer: {
+    root: {
         flex: 1,
         alignItems: 'stretch',
         backgroundColor: '#FFFFFF'

@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {Alert, Text, View, ListView,RefreshControl, InteractionManager,StyleSheet} from 'react-native';
+import {Alert, Text, View, ListView, RefreshControl, InteractionManager, StyleSheet} from 'react-native';
 import util from '../utils/util';
 
 export default class AIListView extends Component {
@@ -13,43 +13,60 @@ export default class AIListView extends Component {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2) => row1 !== row2,
             }),
-            loaded: false
+            loaded: false,//是否已经完成首次加载数据,防止触发onEndReached事件
+            hasMore: true//是否还有更多未加载完毕的数据,
         };
-        this._paramData = this.props.paramData;
         this._refreshData = this._refreshData.bind(this);
-        this._endLoadMore = this._endLoadMore.bind(this);
+        this._loadMoreData = this._loadMoreData.bind(this);
         this._data = [];//缓存页面列表数据
+        this._paramData = {...this.props.paramData, pageNo: 1, pageSize: 10};
     }
 
     componentDidMount() {
-        InteractionManager.runAfterInteractions(()=>{
+        InteractionManager.runAfterInteractions(() => {
             this._fetchData();
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+        for(let key in nextProps.paramData){
+            // alert(nextProps.paramData[key]);
+            this._paramData[key] = nextProps.paramData[key];
+            this._refreshData();//根据新条件重新刷数据
+        }
+    }
+
     _fetchData() {
-        var that = this;
+        var _this = this;
         util.ajax(this.props.remoteAddr, this._paramData, function (data) {
             if (data.state) {
-                that._data = that._data.concat(data.info.rows || []);
-                that.setState({
-                    dataSource: that.state.dataSource.cloneWithRows(that._data),
-                    loaded: true
+                let loadTotal = data.info.total;
+                var hopeRowNum = _this._paramData.pageNo * _this._paramData.pageSize;
+                hopeRowNum = hopeRowNum > loadTotal ? loadTotal : hopeRowNum;
+
+                _this._data = _this._data.concat(data.info.rows || []);
+                _this.setState({
+                    dataSource: _this.state.dataSource.cloneWithRows(_this._data),
+                    loaded: true,
+                    hasMore: loadTotal > hopeRowNum
                 });
             }
         });
     }
+
     _refreshData() {
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows([]),
-            loaded: false
+            loaded: false,
+            hasMore: true
         });
         this._data = [];
         this._paramData.pageNo = 1;
         this._fetchData();
     }
-    _endLoadMore() {
-        if(this.state.loaded){
+
+    _loadMoreData() {
+        if (this.state.loaded && this.state.hasMore) {
             this._paramData.pageNo++;
             this._fetchData();
         }
@@ -67,7 +84,7 @@ export default class AIListView extends Component {
                 <ListView
                     dataSource={this.state.dataSource}
                     renderRow={this.props.renderRow}
-                    onEndReached={this._endLoadMore}
+                    onEndReached={this._loadMoreData}
                     onEndReachedThreshold={5}
                     enableEmptySections
                     refreshControl={

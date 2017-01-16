@@ -47,7 +47,7 @@ export default class APP extends Component {
                 <Navigator
                     initialRoute={defaultRoute}
                     renderScene={this._renderScene}
-                    ref={(ref) => {this.navigator = ref;}}
+                    ref={(ref) => this.navigator = ref}
                     configureScene={(route, routeStack) => Navigator.SceneConfigs.PushFromRight}//FloatFromRight,HorizontalSwipeJump
                 />
             </View>
