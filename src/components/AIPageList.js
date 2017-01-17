@@ -29,16 +29,20 @@ export default class AIListView extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let changed = false;//改变任何state都会触发其他相关Props,因此要过滤考虑
-        for (let key in nextProps.paramData) {
-            if (this._paramData[key] !== nextProps.paramData[key]) {
-                changed = true;
-                this._paramData[key] = nextProps.paramData[key];
-            }
-        }
-        if (changed) {
-            alert(JSON.stringify(nextProps));
+        // alert(JSON.stringify(nextProps));
+        if(nextProps.forceRefresh){//强制刷新标记
             this._refreshData();//根据新条件重新刷数据
+        }else{
+            let changed = false;//改变任何state都会触发其他相关Props,因此要过滤
+            for (let key in nextProps.paramData) {
+                if (this._paramData[key] !== nextProps.paramData[key]) {
+                    changed = true;
+                    this._paramData[key] = nextProps.paramData[key];
+                }
+            }
+            if (changed) {
+                this._refreshData();//根据新条件重新刷数据
+            }
         }
     }
 

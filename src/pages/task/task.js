@@ -14,6 +14,7 @@ export default class task extends Component {
         super(props);
         this.state = {
             opTime: util.fmtDateTime(new Date((new Date() / 1000 - 86400) * 1000), ''),
+            forceRefresh: false,//不考虑paramData,强制刷新数据标记
             modalVisible: false
         };
         this._selectTaskItem = {};
@@ -34,7 +35,7 @@ export default class task extends Component {
 
     _openTaskNode() {
         this.setState({
-            opTime: '20170101'
+            forceRefresh: false
         });
 
 
@@ -52,11 +53,11 @@ export default class task extends Component {
                 {text: '取消', onPress: () => {}},
                 {text: '确定', onPress: () => {
                     util.ajax('task/runTask',{opTime:this._selectTaskItem.opTime,taskCode:this._selectTaskItem.taskCode},function(data){
-                        alert(JSON.stringify(data));
-
-                        _this.setState({
-                            opTime: '20170101'
-                        });
+                        if(data.state){
+                            _this.setState({
+                                forceRefresh:true
+                            });
+                        }
                     });
                 }},
             ]
@@ -75,7 +76,8 @@ export default class task extends Component {
                 if (action !== DatePickerAndroid.dismissedAction) {
                     // 这里开始可以处理用户选好的年月日三个参数：year, month (0-11), day
                     _this.setState({
-                        opTime: util.fmtDateTime(new Date(year, month, day), '')
+                        opTime: util.fmtDateTime(new Date(year, month, day), ''),
+                        forceRefresh: false
                     });
                 }
             } catch ({code, message}) {
@@ -112,6 +114,7 @@ export default class task extends Component {
                             <AIPageList
                                 remoteAddr="task/getTask/2"
                                 paramData={{opTime: this.state.opTime}}
+                                forceRefresh={this.state.forceRefresh}
                                 renderRow={(item) => {
                                     return (
                                         <ListItem
@@ -137,6 +140,7 @@ export default class task extends Component {
                             <AIPageList
                                 remoteAddr="task/getTask/3"
                                 paramData={{opTime: this.state.opTime}}
+                                forceRefresh={this.state.forceRefresh}
                                 renderRow={(item) => {
                                     return (
                                         <ListItem
@@ -162,6 +166,7 @@ export default class task extends Component {
                             <AIPageList
                                 remoteAddr="task/getTask/4"
                                 paramData={{opTime: this.state.opTime}}
+                                forceRefresh={this.state.forceRefresh}
                                 renderRow={(item) => {
                                     return (
                                         <ListItem
