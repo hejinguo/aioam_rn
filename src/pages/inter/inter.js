@@ -62,7 +62,7 @@ export default class inter extends Component {
                                        tabBarInactiveTextColor="#FFFFFF"
                                        tabBarActiveTextColor="#00BFBE"
                                        tabBarUnderlineStyle={{backgroundColor:'#00BFBE'}}>
-                        <View tabLabel="已加载接口明细" containerStyle={styles.tabView}>
+                        <View tabLabel="已加载接口明细" style={styles.tabView}>
                             <AIPageList
                                 remoteAddr="inter/getLoadded"
                                 paramData={{opTime: this.state.opTime}}

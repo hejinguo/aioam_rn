@@ -62,7 +62,7 @@ export default class report extends Component {
                                        tabBarInactiveTextColor="#FFFFFF"
                                        tabBarActiveTextColor="#00BFBE"
                                        tabBarUnderlineStyle={{backgroundColor:'#00BFBE'}}>
-                        <View tabLabel="已生成报表明细" containerStyle={styles.tabView}>
+                        <View tabLabel="已生成报表明细" style={styles.tabView}>
                             <AIPageList
                                 remoteAddr="report/getCheck/1"
                                 paramData={{opTime: this.state.opTime}}

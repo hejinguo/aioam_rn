@@ -21,6 +21,7 @@ export default class task extends Component {
     }
 
     _tapTaskItem(item) {
+        // alert(JSON.stringify(item));
         this._selectTaskItem = item;
         if (this._selectTaskItem.runStatus === 2) {//当按住的是正在执行的任务记录
             this._openTaskNode();
@@ -110,7 +111,7 @@ export default class task extends Component {
                                        tabBarInactiveTextColor="#FFFFFF"
                                        tabBarActiveTextColor="#00BFBE"
                                        tabBarUnderlineStyle={{backgroundColor:'#00BFBE'}}>
-                        <View tabLabel="正在执行" containerStyle={styles.tabView}>
+                        <View tabLabel="正在执行" style={styles.tabView}>
                             <AIPageList
                                 remoteAddr="task/getTask/2"
                                 paramData={{opTime: this.state.opTime}}
@@ -136,7 +137,7 @@ export default class task extends Component {
                                 }}
                             />
                         </View>
-                        <View tabLabel="执行成功" containerStyle={styles.tabView}>
+                        <View tabLabel="执行成功" style={styles.tabView}>
                             <AIPageList
                                 remoteAddr="task/getTask/3"
                                 paramData={{opTime: this.state.opTime}}
