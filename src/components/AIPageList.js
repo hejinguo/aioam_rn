@@ -22,7 +22,7 @@ export default class AIListView extends Component {
         this._paramData = {...this.props.paramData, pageNo: 1, pageSize: 10};
     }
 
-    componentDidMount() {
+    componentWillMount() {
         InteractionManager.runAfterInteractions(() => {
             this._fetchData();
         });
@@ -30,14 +30,14 @@ export default class AIListView extends Component {
 
     componentWillReceiveProps(nextProps) {
         let changed = false;//改变任何state都会触发其他相关Props,因此要过滤考虑
-        for(let key in nextProps.paramData){
-            if(this._paramData[key] !== nextProps.paramData[key]){
+        for (let key in nextProps.paramData) {
+            if (this._paramData[key] !== nextProps.paramData[key]) {
                 changed = true;
                 this._paramData[key] = nextProps.paramData[key];
             }
         }
-        if(changed){
-            // alert(JSON.stringify(nextProps));
+        if (changed) {
+            alert(JSON.stringify(nextProps));
             this._refreshData();//根据新条件重新刷数据
         }
     }

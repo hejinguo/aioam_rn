@@ -33,16 +33,17 @@ export default class task extends Component {
     }
 
     _openTaskNode() {
+        this.setState({
+            opTime: '20170101'
+        });
 
-
-        // this.refs.freshIndicator._refreshData();
 
 
         this._tapModalMask();
     }
 
     _reRunTaskItem(){
-        // that.reRunTask(e.currentTarget.dataset.taskCode, e.currentTarget.dataset.taskName);
+        let _this = this;
         this._tapModalMask();
         Alert.alert(
             '提示',
@@ -52,22 +53,14 @@ export default class task extends Component {
                 {text: '确定', onPress: () => {
                     util.ajax('task/runTask',{opTime:this._selectTaskItem.opTime,taskCode:this._selectTaskItem.taskCode},function(data){
                         alert(JSON.stringify(data));
+
+                        _this.setState({
+                            opTime: '20170101'
+                        });
                     });
                 }},
             ]
         );
-
-        // util.ajax("", { opTime: paramData.opTime, taskCode: taskCode }, function (data) {
-        //     if (data.state) {
-        //         that.setData({
-        //             loadMoreFlag: 'waitload',
-        //             rows: []
-        //         });
-        //         paramData.pageNo = 1;
-        //         paramData.total = 10;
-        //         that.loadMore();
-        //     }
-        // });
     }
 
     async _onPressChangeDate() {
@@ -196,7 +189,6 @@ export default class task extends Component {
                 <Modal animationType="none"
                        transparent={true}
                        onRequestClose={() => {}}
-                       ref="freshIndicator"
                        visible={this.state.modalVisible}>
                     <View style={{flex:1}}>
                         <TouchableOpacity style={styles.modalTouchable}
