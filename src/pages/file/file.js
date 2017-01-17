@@ -3,16 +3,18 @@
  */
 
 import React, {Component} from 'react';
-import {Alert, Text, View, StyleSheet, InteractionManager,Clipboard} from 'react-native';
-import {Icon, List,ListItem} from 'react-native-elements';
+import {Alert, Text, View, StyleSheet, InteractionManager, Clipboard, AsyncStorage} from 'react-native';
+import {Icon, List, ListItem} from 'react-native-elements';
 import util from '../../utils/util';
 
 export default class file extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fileItems:[]
+            fileItems: [],
+            loaded: false
         };
+        this._loginToken = "";
     }
 
     componentDidMount() {
@@ -21,12 +23,14 @@ export default class file extends Component {
         });
     }
 
-    _fetchData() {
-        var _this = this;
+    async _fetchData() {
+        let _this = this;
+        _this._loginToken = await AsyncStorage.getItem("LOGIN_TOKEN");
         util.ajax('file/list', {}, function (data) {
             if (data.state) {
                 _this.setState({
-                    fileItems:data.info
+                    fileItems: data.info,
+                    loaded: true
                 });
             }
         });
@@ -46,11 +50,11 @@ export default class file extends Component {
                 </View>
                 <View style={styles.abody}>
                     <View>
-                        <Text style={{textAlign:'center',color:'#999999',fontSize:12}}>长按复制文件下载地址到剪贴板</Text>
+                        <Text style={styles.loadedText}>{this.state.loaded ? '长按复制文件下载地址到剪贴板' : 'loading...'}</Text>
                     </View>
                     <List containerStyle={{marginTop:0}}>
                         {
-                            this.state.fileItems.map((item,i) => {
+                            this.state.fileItems.map((item, i) => {
                                 return <ListItem
                                     key={item.name}
                                     title={item.name}
@@ -60,12 +64,14 @@ export default class file extends Component {
                                             <View><Text>{item.directory ? '目录' : '文件'}</Text></View>
                                         </View>
                                     }
-                                    onLongPress={() => {Clipboard.setString(item.name);Alert.alert('提示','已复制文件下载地址到剪贴板.')}}
+                                    onLongPress={() => {
+                                        Clipboard.setString("http://hejinguo.win:10029/aioam/file/get?name="+item.name+"&loginToken="+this._loginToken);
+                                        Alert.alert('提示','已复制文件下载地址到剪贴板.')
+                                    }}
                                     hideChevron/>;
                             })
                         }
                     </List>
-
                 </View>
             </View>
         )
@@ -93,7 +99,9 @@ const styles = StyleSheet.create({
         color: '#86939E',
         textAlign: 'center'
     },
-    tabView: {
-        flex: 1,
+    loadedText: {
+        textAlign: 'center',
+        color: '#999999',
+        fontSize: 12
     }
 });
