@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {Alert, Text, View, StyleSheet, DatePickerAndroid,Modal,TouchableOpacity} from 'react-native';
+import {Alert, Text, View, StyleSheet, DatePickerAndroid, Modal, TouchableOpacity,TouchableHighlight} from 'react-native';
 import {Icon, ListItem} from 'react-native-elements';
 import ScrollableTabView, {DefaultTabBar,} from 'react-native-scrollable-tab-view';
 import AIPageList from '../../components/AIPageList';
@@ -16,10 +16,58 @@ export default class task extends Component {
             opTime: util.fmtDateTime(new Date((new Date() / 1000 - 86400) * 1000), ''),
             modalVisible: false
         };
+        this._selectTaskItem = {};
     }
 
-    _setModalVisible(visible) {
-        this.setState({modalVisible: visible});
+    _tapTaskItem(item) {
+        this._selectTaskItem = item;
+        if (this._selectTaskItem.runStatus === 2) {//当按住的是正在执行的任务记录
+            this._openTaskNode();
+        } else {
+            this.setState({modalVisible: true});
+        }
+    }
+
+    _tapModalMask() {
+        this.setState({modalVisible: false});
+    }
+
+    _openTaskNode() {
+
+
+        // this.refs.freshIndicator._refreshData();
+
+
+        this._tapModalMask();
+    }
+
+    _reRunTaskItem(){
+        // that.reRunTask(e.currentTarget.dataset.taskCode, e.currentTarget.dataset.taskName);
+        this._tapModalMask();
+        Alert.alert(
+            '提示',
+            '是否立即重新执行：'+this._selectTaskItem.taskName,
+            [
+                {text: '取消', onPress: () => {}},
+                {text: '确定', onPress: () => {
+                    util.ajax('task/runTask',{opTime:this._selectTaskItem.opTime,taskCode:this._selectTaskItem.taskCode},function(data){
+                        alert(JSON.stringify(data));
+                    });
+                }},
+            ]
+        );
+
+        // util.ajax("", { opTime: paramData.opTime, taskCode: taskCode }, function (data) {
+        //     if (data.state) {
+        //         that.setData({
+        //             loadMoreFlag: 'waitload',
+        //             rows: []
+        //         });
+        //         paramData.pageNo = 1;
+        //         paramData.total = 10;
+        //         that.loadMore();
+        //     }
+        // });
     }
 
     async _onPressChangeDate() {
@@ -34,7 +82,7 @@ export default class task extends Component {
                 if (action !== DatePickerAndroid.dismissedAction) {
                     // 这里开始可以处理用户选好的年月日三个参数：year, month (0-11), day
                     _this.setState({
-                        opTime: util.fmtDateTime(new Date(year,month,day), '')
+                        opTime: util.fmtDateTime(new Date(year, month, day), '')
                     });
                 }
             } catch ({code, message}) {
@@ -85,7 +133,7 @@ export default class task extends Component {
                                                     </View>
                                                 </View>
                                             }
-                                            onPress={() => {this._setModalVisible(true)}}
+                                            onPress={() => {this._tapTaskItem(item)}}
                                             hideChevron
                                         />
                                     );
@@ -110,7 +158,7 @@ export default class task extends Component {
                                                     </View>
                                                 </View>
                                             }
-                                            onPress={() => {this._setModalVisible(true)}}
+                                            onPress={() => {this._tapTaskItem(item)}}
                                             hideChevron
                                         />
                                     );
@@ -135,7 +183,7 @@ export default class task extends Component {
                                                     </View>
                                                 </View>
                                             }
-                                            onPress={() => {this._setModalVisible(true)}}
+                                            onPress={() => {this._tapTaskItem(item)}}
                                             hideChevron
                                         />
                                     );
@@ -148,16 +196,35 @@ export default class task extends Component {
                 <Modal animationType="none"
                        transparent={true}
                        onRequestClose={() => {}}
+                       ref="freshIndicator"
                        visible={this.state.modalVisible}>
                     <View style={{flex:1}}>
                         <TouchableOpacity style={styles.modalTouchable}
-                            onPress={() => {this._setModalVisible(false)}}>
+                                          onPress={() => {this._tapModalMask()}}>
                             <Text></Text>
                         </TouchableOpacity>
                         <View style={styles.modalView}>
-                            <TouchableOpacity onPress={() => {this._setModalVisible(false)}}>
-                                <Text>112233445566</Text>
-                            </TouchableOpacity>
+                            <Text style={{textAlign:'center'}}>{this._selectTaskItem.taskName}</Text>
+                            <View style={styles.modalTapView}>
+                                <TouchableHighlight
+                                    underlayColor="#F5F5F5"
+                                    style={styles.modalTapItem}
+                                    onPress={() => {this._openTaskNode()}}>
+                                    <View>
+                                        <Icon type="font-awesome" name='tv' color="#000000"/>
+                                        <Text>查看任务节点</Text>
+                                    </View>
+                                </TouchableHighlight>
+                                <TouchableHighlight
+                                    underlayColor="#F5F5F5"
+                                    style={styles.modalTapItem}
+                                    onPress={() => {this._reRunTaskItem()}}>
+                                    <View>
+                                        <Icon type="font-awesome" name='tv' color="#FF5722"/>
+                                        <Text>重新执行任务</Text>
+                                    </View>
+                                </TouchableHighlight>
+                            </View>
                         </View>
                     </View>
                 </Modal>
@@ -191,16 +258,27 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     modalTouchable: {
-        flex:1,
-        backgroundColor:'#3D455F88'
+        flex: 1,
+        backgroundColor: '#3D455F88'
     },
     modalView: {
-        borderTopWidth:StyleSheet.hairlineWidth,
-        backgroundColor:'#FFFFFF',
-        position:'absolute',
-        bottom:0,
-        left:0,
-        right:0,
-        height:120
+        borderTopWidth: StyleSheet.hairlineWidth,
+        backgroundColor: '#FFFFFF',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: 120
+    },
+    modalTapView: {
+        flexDirection: 'row',
+        flex:1
+    },
+    modalTapItem: {
+        flex:1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#FAFAFC',
+        margin: 1
     }
 });
