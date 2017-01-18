@@ -13,7 +13,7 @@ export default class Guide extends Component {
         super(props);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this._validateLogined();
     }
 

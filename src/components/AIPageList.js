@@ -22,7 +22,7 @@ export default class AIListView extends Component {
         this._paramData = {...this.props.paramData, pageNo: 1, pageSize: 10};
     }
 
-    componentWillMount() {
+    componentDidMount() {
         InteractionManager.runAfterInteractions(() => {
             this._fetchData();
         });

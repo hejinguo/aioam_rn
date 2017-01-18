@@ -6,7 +6,8 @@ import React, {Component} from 'react';
 import {Alert, Text, View, StyleSheet, Modal, TouchableOpacity, TouchableHighlight} from 'react-native';
 import {Icon, ListItem} from 'react-native-elements';
 import AIPageList from '../../components/AIPageList';
-import util from '../../utils/util';
+import dptLog from './dptLog';
+import step from './step';
 
 export default class node extends Component {
     constructor(props) {
@@ -22,7 +23,7 @@ export default class node extends Component {
     _tapNodeItem(item) {
         // alert(JSON.stringify(item));
         this._selectTaskItem = item;
-        if (this._selectTaskItem.procName) {//当按住的是DPT程序节点
+        if (this._selectTaskItem.mkexeSh) {//当按住的是DPT程序节点
             this.setState({modalVisible: true});
         } else {
             Alert.alert('提示', '不是DPT程序节点,无法查看任务步骤.');
@@ -35,28 +36,24 @@ export default class node extends Component {
 
     _openNodeStep() {
         this._tapModalMask();
-        // this.props.navigator.push({
-        //     component: node,
-        //     params: {
-        //         taskName: this._selectTaskItem.taskName,
-        //         opTime: this._selectTaskItem.opTime,
-        //         taskSeqNo: this._selectTaskItem.taskSeqNo
-        //     }
-        // })
-
-
+        this.props.navigator.push({
+            component: step,
+            params: {
+                opTime: this._selectTaskItem.opTime,
+                procName: this._selectTaskItem.procName
+            }
+        });
     }
 
     _openDptLog() {
         this._tapModalMask();
-        // this.props.navigator.push({
-        //     component: node,
-        //     params: {
-        //         taskName: this._selectTaskItem.taskName,
-        //         opTime: this._selectTaskItem.opTime,
-        //         taskSeqNo: this._selectTaskItem.taskSeqNo
-        //     }
-        // })
+        this.props.navigator.push({
+            component: dptLog,
+            params: {
+                procName: this._selectTaskItem.procName,
+                dlogPath: this._selectTaskItem.dlogPath
+            }
+        });
     }
 
     render() {
