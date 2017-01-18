@@ -3,10 +3,20 @@
  */
 
 import React, {Component} from 'react';
-import {Alert, Text, View, StyleSheet, DatePickerAndroid, Modal, TouchableOpacity,TouchableHighlight} from 'react-native';
+import {
+    Alert,
+    Text,
+    View,
+    StyleSheet,
+    DatePickerAndroid,
+    Modal,
+    TouchableOpacity,
+    TouchableHighlight
+} from 'react-native';
 import {Icon, ListItem} from 'react-native-elements';
 import ScrollableTabView, {DefaultTabBar,} from 'react-native-scrollable-tab-view';
 import AIPageList from '../../components/AIPageList';
+import node from './node';
 import util from '../../utils/util';
 
 export default class task extends Component {
@@ -38,29 +48,42 @@ export default class task extends Component {
         this.setState({
             forceRefresh: false
         });
-
-
-
         this._tapModalMask();
+        this.props.navigator.push({
+            component: node,
+            params: {
+                taskName: this._selectTaskItem.taskName,
+                opTime: this._selectTaskItem.opTime,
+                taskSeqNo: this._selectTaskItem.taskSeqNo
+            }
+        })
     }
 
-    _reRunTaskItem(){
+    _reRunTaskItem() {
         let _this = this;
         this._tapModalMask();
         Alert.alert(
             '提示',
-            '是否立即重新执行：'+this._selectTaskItem.taskName,
+            '是否立即重新执行：' + this._selectTaskItem.taskName,
             [
-                {text: '取消', onPress: () => {}},
-                {text: '确定', onPress: () => {
-                    util.ajax('task/runTask',{opTime:this._selectTaskItem.opTime,taskCode:this._selectTaskItem.taskCode},function(data){
-                        if(data.state){
+                {
+                    text: '取消', onPress: () => {
+                }
+                },
+                {
+                    text: '确定', onPress: () => {
+                    util.ajax('task/runTask', {
+                        opTime: this._selectTaskItem.opTime,
+                        taskCode: this._selectTaskItem.taskCode
+                    }, function (data) {
+                        if (data.state) {
                             _this.setState({
-                                forceRefresh:true
+                                forceRefresh: true
                             });
                         }
                     });
-                }},
+                }
+                },
             ]
         );
     }
@@ -207,19 +230,19 @@ export default class task extends Component {
                                 <TouchableHighlight
                                     underlayColor="#F5F5F5"
                                     style={styles.modalTapItem}
-                                    onPress={() => {this._openTaskNode()}}>
+                                    onPress={() => {this._reRunTaskItem()}}>
                                     <View>
-                                        <Icon type="font-awesome" name='tv' color="#000000"/>
-                                        <Text>查看任务节点</Text>
+                                        <Icon type="font-awesome" name='tv' color="#FF5722"/>
+                                        <Text>重新执行任务</Text>
                                     </View>
                                 </TouchableHighlight>
                                 <TouchableHighlight
                                     underlayColor="#F5F5F5"
                                     style={styles.modalTapItem}
-                                    onPress={() => {this._reRunTaskItem()}}>
+                                    onPress={() => {this._openTaskNode()}}>
                                     <View>
-                                        <Icon type="font-awesome" name='tv' color="#FF5722"/>
-                                        <Text>重新执行任务</Text>
+                                        <Icon type="font-awesome" name='tv' color="#000000"/>
+                                        <Text>查看任务节点</Text>
                                     </View>
                                 </TouchableHighlight>
                             </View>
@@ -270,10 +293,10 @@ const styles = StyleSheet.create({
     },
     modalTapView: {
         flexDirection: 'row',
-        flex:1
+        flex: 1
     },
     modalTapItem: {
-        flex:1,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#FAFAFC',
