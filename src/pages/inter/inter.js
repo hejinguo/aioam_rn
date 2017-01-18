@@ -69,7 +69,7 @@ export default class inter extends Component {
                                 renderRow={(item) => {
                                     return (
                                         <ListItem
-                                            key={item.tabname}
+                                            key={item.interCode}
                                             title={item.tabname}
                                             subtitle={
                                                 <View style={{flexDirection:'row'}}>

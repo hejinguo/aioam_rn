@@ -69,7 +69,7 @@ export default class report extends Component {
                                 renderRow={(item) => {
                                     return (
                                         <ListItem
-                                            key={item.tableName}
+                                            key={item.taskCode}
                                             title={item.taskName}
                                             subtitle={
                                                 <View>
