@@ -39,6 +39,8 @@ export default class login extends Component {
             util.ajax('base/getMark', {loginCode: this.state.loginCode}, function (data) {
                 if (data.state) {
                     Alert.alert('提示','验证码发送至' + data.info + ',请查收.');
+                }else{
+                    Alert.alert('提示', '错误代码:' + data.code);
                 }
             });
         }else{
@@ -55,6 +57,8 @@ export default class login extends Component {
                     _this.props.navigator.replace({
                         component: main
                     })
+                }else{
+                    Alert.alert('提示', '错误代码:' + data.code);
                 }
             });
         }else{

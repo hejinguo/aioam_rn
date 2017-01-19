@@ -80,6 +80,8 @@ export default class task extends Component {
                             _this.setState({
                                 forceRefresh: true
                             });
+                        }else{
+                            Alert.alert('提示', '错误代码:' + data.code);
                         }
                     });
                 }

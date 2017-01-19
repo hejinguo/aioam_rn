@@ -32,6 +32,8 @@ export default class file extends Component {
                     fileItems: data.info,
                     loaded: true
                 });
+            }else{
+                Alert.alert('提示', '错误代码:' + data.code);
             }
         });
     }

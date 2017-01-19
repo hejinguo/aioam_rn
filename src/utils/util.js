@@ -70,18 +70,16 @@ function ajax(url, params, onSuccess, onError, onComplete) {
                 if (!responseJson.state && responseJson.code == "JAVA_EXCEPTION") {
                     Alert.alert('提示', '服务端请求处理发生问题,请联系系统管理员.');
                 } else if (!responseJson.state && responseJson.code == "NOT_LOGINED") {
-                    Alert.alert('提示', '您尚未登陆或账号在其他终端上登陆导致本设备踢出.');
                     AsyncStorage.removeItem('LOGIN_TOKEN');
+                    Alert.alert('提示', '您尚未登陆或账号在其他终端上登陆导致本设备踢出.');
                     // wx.navigateBack(getCurrentPages().length + 100);//返回首页
-                } else if (!responseJson.state) {
-                    Alert.alert('提示', '错误代码:' + responseJson.code);
                 } else {
                     onSuccess(responseJson);
                 }
             })
             .catch((error) => {
-                console.error(error);
-                onError();
+                onError(error);
+                Alert.alert('提示', '错误代码:' + error);
             });
     })
 };
