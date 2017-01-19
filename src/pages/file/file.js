@@ -3,8 +3,8 @@
  */
 
 import React, {Component} from 'react';
-import {Alert, Text, View, StyleSheet, InteractionManager, Clipboard, AsyncStorage} from 'react-native';
-import {Icon, List, ListItem} from 'react-native-elements';
+import {Alert, Text, View, StyleSheet, ScrollView, InteractionManager, Clipboard, AsyncStorage} from 'react-native';
+import {Icon, ListItem} from 'react-native-elements';
 import util from '../../utils/util';
 
 export default class file extends Component {
@@ -50,9 +50,9 @@ export default class file extends Component {
                 </View>
                 <View style={styles.abody}>
                     <View>
-                        <Text style={styles.loadedText}>{this.state.loaded ? '长按复制文件下载地址到剪贴板' : 'loading...'}</Text>
+                        <Text style={styles.loadedText}>{this.state.loaded ? '长按文件复制下载地址到剪贴板' : 'loading...'}</Text>
                     </View>
-                    <List containerStyle={{marginTop:0}}>
+                    <ScrollView style={{borderTopWidth:StyleSheet.hairlineWidth,borderTopColor:'#000000'}}>
                         {
                             this.state.fileItems.map((item, i) => {
                                 return <ListItem
@@ -71,7 +71,7 @@ export default class file extends Component {
                                     hideChevron/>;
                             })
                         }
-                    </List>
+                    </ScrollView>
                 </View>
             </View>
         )
