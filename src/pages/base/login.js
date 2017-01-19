@@ -67,7 +67,7 @@ export default class login extends Component {
             <View style={styles.root}>
                 <View style={styles.aheader}>
                     <Text style={styles.apptitle}>
-                        ESOP+运营宝
+                        ESOP+运营助手
                     </Text>
                 </View>
                 <View style={styles.abody}>
