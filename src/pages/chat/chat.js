@@ -4,13 +4,32 @@
 import React, {Component} from "react";
 import {Alert, Text, View, StyleSheet, ScrollView, TextInput} from "react-native";
 import {Icon} from "react-native-elements";
+import util from '../../utils/util';
 
 export default class step extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            dataSource: []
         };
+        this._data = [];
+    }
+
+    _handleInputSubmit(event){
+        let _this = this;
+        let searchInfo = event.nativeEvent.text;
+        util.ajax('selfHelp/getStaffUnitInfo', {
+            searchInfo: searchInfo
+        }, function (data) {
+            if (data.state) {
+                _this._data = _this._data.concat(JSON.stringify(data.info || []));
+                _this.setState({
+                    dataSource: _this._data
+                });
+            }else{
+                Alert.alert('提示', '错误代码:' + data.code);
+            }
+        });
     }
 
     render() {
@@ -27,15 +46,19 @@ export default class step extends Component {
                 </View>
                 <View style={styles.abody}>
                     <ScrollView>
-
-
+                        {
+                            this.state.dataSource.map((item,i) => {
+                                return <Text key={i}>{item}</Text>
+                            })
+                        }
                     </ScrollView>
                 </View>
                 <View style={styles.afooter}>
                     <TextInput
-                        placeholder=""
+                        placeholder="请输入用户或集团的关键字检索..."
                         underlineColorAndroid="transparent"
-                        style={{borderColor:'#00FF00',borderWidth:1}}></TextInput>
+                        onSubmitEditing={(event) => {this._handleInputSubmit(event)}}
+                    />
                 </View>
             </View>
         )
@@ -58,7 +81,7 @@ const styles = StyleSheet.create({
         alignItems: 'stretch'
     },
     afooter: {
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: '#FF0000'
+        borderTopColor: '#FF0000',
+        borderTopWidth: 1
     }
 });

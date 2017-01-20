@@ -28,7 +28,7 @@ export default class main extends Component {
                         <SearchBar
                             containerStyle={{flex:1,backgroundColor: '#3D455F',borderTopWidth:0,borderBottomWidth:0}}
                             inputStyle={{backgroundColor:'#FFFFFF'}}
-                            placeholder='请输入工号或集团的关键字检索...'/>
+                            placeholder='请输入用户或集团的关键字检索...'/>
                         <Icon type="foundation" name='calendar'
                               color="#FFFFFF" underlayColor="#3D455F" iconStyle={{marginRight:10}}
                               onPress={() => {}}/>
@@ -118,17 +118,6 @@ export default class main extends Component {
                                         underlayColor="#F5F5F5"
                                         onPress={() => {}}>
                                         <View>
-                                            <Icon type="font-awesome" name='tv' color="#FF5722"/>
-                                            <Text>主机监控</Text>
-                                        </View>
-                                    </TouchableHighlight>
-                                </Col>
-                                <Col>
-                                    <TouchableHighlight
-                                        style={styles.griditem}
-                                        underlayColor="#F5F5F5"
-                                        onPress={() => {}}>
-                                        <View>
                                             <Icon type="font-awesome" name='sun-o' color="#E81E63"/>
                                             <Text>热门问题</Text>
                                         </View>
@@ -145,7 +134,17 @@ export default class main extends Component {
                                         </View>
                                     </TouchableHighlight>
                                 </Col>
-
+                                <Col>
+                                    <TouchableHighlight
+                                        style={styles.griditem}
+                                        underlayColor="#F5F5F5"
+                                        onPress={() => {}}>
+                                        <View>
+                                            <Icon type="font-awesome" name='tv' color="#FF5722"/>
+                                            <Text>主机监控</Text>
+                                        </View>
+                                    </TouchableHighlight>
+                                </Col>
                             </Row>
                             <Row style={{height:100}}>
                                 <Col>
