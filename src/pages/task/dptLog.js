@@ -2,7 +2,7 @@
  * Created by never on 2017/1/18.
  */
 import React, {Component} from "react";
-import {Alert, Text, View, StyleSheet, AsyncStorage, WebView} from "react-native";
+import {Alert, Text, View, StyleSheet, AsyncStorage, InteractionManager, WebView} from "react-native";
 import {Icon} from 'react-native-elements';
 
 export default class dptLog extends Component {
@@ -15,15 +15,16 @@ export default class dptLog extends Component {
 
     componentDidMount() {
         let _this = this;
-        AsyncStorage.getItem("LOGIN_TOKEN", function (error, result) {
-            if (result) {
-                let name = _this.props.procName + "_" + _this.props.dlogPath + ".log";
-                _this.setState({
-                    dtpLogAddr: "http://218.205.252.12:10029/aioam/file/readDlog?name=" + name + "&loginToken=" + result
-                });
-            }
+        InteractionManager.runAfterInteractions(() => {
+            AsyncStorage.getItem("LOGIN_TOKEN", function (error, result) {
+                if (result) {
+                    let name = _this.props.procName + "_" + _this.props.dlogPath + ".log";
+                    _this.setState({
+                        dtpLogAddr: "http://218.205.252.12:10029/aioam/file/readDlog?name=" + name + "&loginToken=" + result
+                    });
+                }
+            });
         });
-
     }
 
     render() {

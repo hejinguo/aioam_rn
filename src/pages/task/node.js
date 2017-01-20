@@ -110,7 +110,7 @@ export default class node extends Component {
                                     style={styles.modalTapItem}
                                     onPress={() => {this._openDptLog()}}>
                                     <View>
-                                        <Icon type="font-awesome" name='tv' color="#000000"/>
+                                        <Icon type="font-awesome" name='info-circle' color="#FF5722"/>
                                         <Text>DPT程序日志</Text>
                                     </View>
                                 </TouchableHighlight>
@@ -119,7 +119,7 @@ export default class node extends Component {
                                     style={styles.modalTapItem}
                                     onPress={() => {this._openNodeStep()}}>
                                     <View>
-                                        <Icon type="font-awesome" name='tv' color="#000000"/>
+                                        <Icon type="font-awesome" name='tasks' color="#000000"/>
                                         <Text>查看程序步骤</Text>
                                     </View>
                                 </TouchableHighlight>

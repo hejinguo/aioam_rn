@@ -234,7 +234,7 @@ export default class task extends Component {
                                     style={styles.modalTapItem}
                                     onPress={() => {this._reRunTaskItem()}}>
                                     <View>
-                                        <Icon type="font-awesome" name='tv' color="#FF5722"/>
+                                        <Icon type="font-awesome" name='random' color="#FF5722"/>
                                         <Text>重新执行任务</Text>
                                     </View>
                                 </TouchableHighlight>
@@ -243,7 +243,7 @@ export default class task extends Component {
                                     style={styles.modalTapItem}
                                     onPress={() => {this._openTaskNode()}}>
                                     <View>
-                                        <Icon type="font-awesome" name='tv' color="#000000"/>
+                                        <Icon type="font-awesome" name='tasks' color="#000000"/>
                                         <Text>查看任务节点</Text>
                                     </View>
                                 </TouchableHighlight>

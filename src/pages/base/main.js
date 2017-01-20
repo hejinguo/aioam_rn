@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {Alert, Text, View, StyleSheet, TouchableHighlight,StatusBar} from 'react-native';
+import {Alert, Text, View,ScrollView, StyleSheet, TouchableHighlight,StatusBar} from 'react-native';
 import {SearchBar, Grid, Row, Col, Icon} from 'react-native-elements';
 import inter from '../inter/inter';
 import report from '../report/report';
@@ -37,115 +37,132 @@ export default class main extends Component {
                     </View>
                 </View>
                 <View style={styles.abody}>
-                    <Grid>
-                        <Row style={{height:100}}>
-                            <Col>
-                                <TouchableHighlight
-                                    style={styles.griditem}
-                                    underlayColor="#F5F5F5"
-                                    onPress={() => this.props.navigator.push({component: inter})}>
-                                    <View>
-                                        <Icon type="font-awesome" name='list-ul' color="#9C26B0"/>
-                                        <Text>接口加载</Text>
-                                    </View>
-                                </TouchableHighlight>
-                            </Col>
-                            <Col>
-                                <TouchableHighlight
-                                    style={styles.griditem}
-                                    underlayColor="#F5F5F5"
-                                    onPress={() => this.props.navigator.push({component: task})}>
-                                    <View>
-                                        <Icon type="font-awesome" name='wpforms' color="#2096F3"/>
-                                        <Text>任务执行</Text>
-                                    </View>
-                                </TouchableHighlight>
-                            </Col>
-                            <Col>
-                                <TouchableHighlight
-                                    style={styles.griditem}
-                                    underlayColor="#F5F5F5"
-                                    onPress={() => this.props.navigator.push({component: report})}>
-                                    <View>
-                                        <Icon type="font-awesome" name='bar-chart' color="#009588"/>
-                                        <Text>报表加载</Text>
-                                    </View>
-                                </TouchableHighlight>
-                            </Col>
-                        </Row>
-                        <Row style={{height:100}}>
-                            <Col>
-                                <TouchableHighlight
-                                    style={styles.griditem}
-                                    underlayColor="#F5F5F5"
-                                    onPress={() => {}}>
-                                    <View>
-                                        <Icon type="font-awesome" name='slideshare' color="#8BC34A"/>
-                                        <Text>自助服务</Text>
-                                    </View>
-                                </TouchableHighlight>
-                            </Col>
-                            <Col>
-                                <TouchableHighlight
-                                    style={styles.griditem}
-                                    underlayColor="#F5F5F5"
-                                    onPress={() => this.props.navigator.push({component: file})}>
-                                    <View>
-                                        <Icon type="font-awesome" name='file-text-o' color="#FFC108"/>
-                                        <Text>我的文件</Text>
-                                    </View>
-                                </TouchableHighlight>
-                            </Col>
-                            <Col>
-                                <TouchableHighlight
-                                    style={styles.griditem}
-                                    underlayColor="#F5F5F5"
-                                    onPress={() => {}}>
-                                    <View>
-                                        <Icon type="font-awesome" name='tv' color="#FF5722"/>
-                                        <Text>主机监控</Text>
-                                    </View>
-                                </TouchableHighlight>
-                            </Col>
-                        </Row>
-                        <Row style={{height:100}}>
-                            <Col>
-                                <TouchableHighlight
-                                    style={styles.griditem}
-                                    underlayColor="#F5F5F5"
-                                    onPress={() => {}}>
-                                    <View>
-                                        <Icon type="font-awesome" name='sun-o' color="#E81E63"/>
-                                        <Text>热门问题</Text>
-                                    </View>
-                                </TouchableHighlight>
-                            </Col>
-                            <Col>
-                                <TouchableHighlight
-                                    style={styles.griditem}
-                                    underlayColor="#F5F5F5"
-                                    onPress={() => {}}>
-                                    <View>
-                                        <Icon type="font-awesome" name='balance-scale' color="#9E9E9E"/>
-                                        <Text>服务关怀</Text>
-                                    </View>
-                                </TouchableHighlight>
-                            </Col>
-                            <Col>
-                                <TouchableHighlight
-                                    style={styles.griditem}
-                                    underlayColor="#F5F5F5"
-                                    onPress={() => {}}>
-                                    <View>
-                                        <Icon type="font-awesome" name='phone' color="#3F51B5"/>
-                                        <Text>联系方式</Text>
-                                    </View>
-                                </TouchableHighlight>
-                            </Col>
-                        </Row>
-                    </Grid>
+                    <ScrollView>
+                        <Grid>
+                            <Row style={{height:100}}>
+                                <Col>
+                                    <TouchableHighlight
+                                        style={styles.griditem}
+                                        underlayColor="#F5F5F5"
+                                        onPress={() => this.props.navigator.push({component: inter})}>
+                                        <View>
+                                            <Icon type="font-awesome" name='ravelry' color="#9C26B0"/>
+                                            <Text>接口加载</Text>
+                                        </View>
+                                    </TouchableHighlight>
+                                </Col>
+                                <Col>
+                                    <TouchableHighlight
+                                        style={styles.griditem}
+                                        underlayColor="#F5F5F5"
+                                        onPress={() => this.props.navigator.push({component: task})}>
+                                        <View>
+                                            <Icon type="font-awesome" name='wpforms' color="#2096F3"/>
+                                            <Text>任务执行</Text>
+                                        </View>
+                                    </TouchableHighlight>
+                                </Col>
+                                <Col>
+                                    <TouchableHighlight
+                                        style={styles.griditem}
+                                        underlayColor="#F5F5F5"
+                                        onPress={() => this.props.navigator.push({component: report})}>
+                                        <View>
+                                            <Icon type="font-awesome" name='bar-chart' color="#009588"/>
+                                            <Text>报表加载</Text>
+                                        </View>
+                                    </TouchableHighlight>
+                                </Col>
+                            </Row>
+                            <Row style={{height:100}}>
+                                <Col>
+                                    <TouchableHighlight
+                                        style={styles.griditem}
+                                        underlayColor="#F5F5F5"
+                                        onPress={() => {}}>
+                                        <View>
+                                            <Icon type="font-awesome" name='slideshare' color="#8BC34A"/>
+                                            <Text>自助服务</Text>
+                                        </View>
+                                    </TouchableHighlight>
+                                </Col>
+                                <Col>
+                                    <TouchableHighlight
+                                        style={styles.griditem}
+                                        underlayColor="#F5F5F5"
+                                        onPress={() => this.props.navigator.push({component: file})}>
+                                        <View>
+                                            <Icon type="font-awesome" name='file-text-o' color="#FFC108"/>
+                                            <Text>我的文件</Text>
+                                        </View>
+                                    </TouchableHighlight>
+                                </Col>
+                                <Col>
+                                    <TouchableHighlight
+                                        style={styles.griditem}
+                                        underlayColor="#F5F5F5"
+                                        onPress={() => {}}>
+                                        <View>
+                                            <Icon type="font-awesome" name='paypal' color="#FF5722"/>
+                                            <Text>值班计划</Text>
+                                        </View>
+                                    </TouchableHighlight>
+                                </Col>
+                            </Row>
+                            <Row style={{height:100}}>
+                                <Col>
+                                    <TouchableHighlight
+                                        style={styles.griditem}
+                                        underlayColor="#F5F5F5"
+                                        onPress={() => {}}>
+                                        <View>
+                                            <Icon type="font-awesome" name='tv' color="#FF5722"/>
+                                            <Text>主机监控</Text>
+                                        </View>
+                                    </TouchableHighlight>
+                                </Col>
+                                <Col>
+                                    <TouchableHighlight
+                                        style={styles.griditem}
+                                        underlayColor="#F5F5F5"
+                                        onPress={() => {}}>
+                                        <View>
+                                            <Icon type="font-awesome" name='sun-o' color="#E81E63"/>
+                                            <Text>热门问题</Text>
+                                        </View>
+                                    </TouchableHighlight>
+                                </Col>
+                                <Col>
+                                    <TouchableHighlight
+                                        style={styles.griditem}
+                                        underlayColor="#F5F5F5"
+                                        onPress={() => {}}>
+                                        <View>
+                                            <Icon type="font-awesome" name='balance-scale' color="#9E9E9E"/>
+                                            <Text>服务关怀</Text>
+                                        </View>
+                                    </TouchableHighlight>
+                                </Col>
+
+                            </Row>
+                            <Row style={{height:100}}>
+                                <Col>
+                                    <TouchableHighlight
+                                        style={styles.griditem}
+                                        underlayColor="#F5F5F5"
+                                        onPress={() => {}}>
+                                        <View>
+                                            <Icon type="font-awesome" name='address-card-o' color="#3F51B5"/>
+                                            <Text>联系方式</Text>
+                                        </View>
+                                    </TouchableHighlight>
+                                </Col>
+                                <Col></Col>
+                                <Col></Col>
+                            </Row>
+                        </Grid>
+                    </ScrollView>
                 </View>
-                <Text style={styles.afooter}>Copyright © 2010-2017 ESOP TEAM</Text>
             </View>
         )
     }
