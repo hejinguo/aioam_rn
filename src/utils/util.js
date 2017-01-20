@@ -40,6 +40,18 @@ function fmtDateTime() {
 }
 
 /**
+ * 定义常量字段
+ * @param key
+ * @returns {*}
+ */
+function getConstantField(key){
+    if(key === "APP_VERSION"){
+        return "1.2.0";//本地APP版本
+    }
+    return "";
+}
+
+/**
  * Ajax请求封装
  */
 function ajax(url, params, onSuccess, onError, onComplete) {
@@ -86,5 +98,6 @@ function ajax(url, params, onSuccess, onError, onComplete) {
 
 module.exports = {
     ajax: ajax,
-    fmtDateTime: fmtDateTime
+    fmtDateTime: fmtDateTime,
+    getConstantField: getConstantField
 }

@@ -8,7 +8,8 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Alert, Text, TouchableOpacity, StatusBar,AsyncStorage} from 'react-native';
 import {Button, FormLabel, FormInput} from 'react-native-elements';
 import util from '../../utils/util';
-import main from './main';
+import Main from './main';
+import Version from './version';
 
 export default class login extends Component {
     constructor(props) {
@@ -29,7 +30,7 @@ export default class login extends Component {
         AsyncStorage.getItem("LOGIN_TOKEN",function (error,result) {
             if(result){
                 _this.props.navigator.replace({
-                    component: main
+                    component: Main
                 })
             }
         });
@@ -51,7 +52,14 @@ export default class login extends Component {
         var _this = this;
         if(this.state.loginCode && this.state.password && this.state.loginMark){
             util.ajax('base/login',{loginCode:this.state.loginCode,loginPassword:this.state.password,lastLoginMark:this.state.loginMark},function(data){
-                if(data.state){
+                if(data.info.version.name !== util.getConstantField('APP_VERSION')){
+                    _this.props.navigator.replace({//不管登录状态是否有效，只要版本不匹配均进入升级界面
+                        component: Version,
+                        params: {
+                            remoteVersion: data.info.version
+                        }
+                    });
+                }else if(data.state){
                     AsyncStorage.setItem("LOGIN_CODE",data.info.loginCode);
                     AsyncStorage.setItem("LOGIN_TOKEN",data.info.loginToken);
                     _this.props.navigator.replace({
