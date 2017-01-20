@@ -2,31 +2,47 @@
  * Created by hejg on 2017/1/20.
  */
 import React, {Component} from "react";
-import {Alert, Text, View, StyleSheet, ScrollView, TextInput} from "react-native";
+import {Alert, Text, View, StyleSheet, ScrollView, TextInput, InteractionManager} from "react-native";
 import {Icon} from "react-native-elements";
-import util from '../../utils/util';
+import util from "../../utils/util";
 
 export default class step extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataSource: []
+            dataSource: [],
+            loaded: this.props.searchInfo ? true : false
         };
         this._data = [];
     }
 
-    _handleInputSubmit(event){
+    componentDidMount() {
+        InteractionManager.runAfterInteractions(() => {
+            if(this.props.searchInfo){
+                this._fetchData(this.props.searchInfo);
+            }
+        });
+    }
+
+    _handleInputSubmit(event) {
+        this._fetchData(event.nativeEvent.text);
+    }
+
+    _fetchData(searchInfo) {
         let _this = this;
-        let searchInfo = event.nativeEvent.text;
+        _this.setState({
+            loaded: true
+        });
         util.ajax('selfHelp/getStaffUnitInfo', {
             searchInfo: searchInfo
         }, function (data) {
             if (data.state) {
                 _this._data = _this._data.concat(JSON.stringify(data.info || []));
                 _this.setState({
-                    dataSource: _this._data
+                    dataSource: _this._data,
+                    loaded: false
                 });
-            }else{
+            } else {
                 Alert.alert('提示', '错误代码:' + data.code);
             }
         });
@@ -45,9 +61,10 @@ export default class step extends Component {
                     </View>
                 </View>
                 <View style={styles.abody}>
+                    {this.state.loaded ? <Text style={{textAlign:'center'}}>loading</Text> : <Text style={{height:0}}></Text>}
                     <ScrollView>
                         {
-                            this.state.dataSource.map((item,i) => {
+                            this.state.dataSource.map((item, i) => {
                                 return <Text key={i}>{item}</Text>
                             })
                         }

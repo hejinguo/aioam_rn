@@ -21,18 +21,17 @@ export default class main extends Component {
         return (
             <View style={styles.root}>
                 <View style={styles.aheader}>
-                    <View style={{flexDirection:'row',height:0}}>
-                        <Icon type="foundation" name='address-book'
-                              color="#FFFFFF" underlayColor="#3D455F" iconStyle={{marginLeft:10}}
-                              onPress={() => {}}/>
-                        <SearchBar
-                            containerStyle={{flex:1,backgroundColor: '#3D455F',borderTopWidth:0,borderBottomWidth:0}}
-                            inputStyle={{backgroundColor:'#FFFFFF'}}
-                            placeholder='请输入用户或集团的关键字检索...'/>
-                        <Icon type="foundation" name='calendar'
-                              color="#FFFFFF" underlayColor="#3D455F" iconStyle={{marginRight:10}}
-                              onPress={() => {}}/>
-                    </View>
+                    <SearchBar
+                        containerStyle={{backgroundColor: '#3D455F',borderTopWidth:0,borderBottomWidth:0,}}
+                        inputStyle={{backgroundColor:'#FFFFFF'}}
+                        placeholder='请输入用户或集团的关键字检索...'
+                        onSubmitEditing={(event) => this.props.navigator.push({
+                            component: chat,
+                            params: {
+                                searchInfo: event.nativeEvent.text
+                            }
+                        })}
+                    />
                     <View style={styles.carousel}>
                         <Text style={{color:'#00BFBE'}}>数据加载情况汇总信息</Text>
                         <Text style={{color:'#00BFBE'}}>日常假期值班安排情况</Text>
