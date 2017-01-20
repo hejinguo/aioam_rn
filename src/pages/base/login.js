@@ -21,20 +21,7 @@ export default class login extends Component {
         };
 
     }
-    componentWillMount(){
-        this._validateLogined();
-    }
 
-    _validateLogined() {
-        var _this = this;
-        AsyncStorage.getItem("LOGIN_TOKEN",function (error,result) {
-            if(result){
-                _this.props.navigator.replace({
-                    component: Main
-                })
-            }
-        });
-    }
     _sendLoginMark() {
         if(this.state.loginCode){
             util.ajax('base/getMark', {loginCode: this.state.loginCode}, function (data) {
@@ -52,18 +39,18 @@ export default class login extends Component {
         var _this = this;
         if(this.state.loginCode && this.state.password && this.state.loginMark){
             util.ajax('base/login',{loginCode:this.state.loginCode,loginPassword:this.state.password,lastLoginMark:this.state.loginMark},function(data){
-                if(data.info.version.name !== util.getConstantField('APP_VERSION')){
+                if(data.state && data.info.version.name !== util.getConstantField('APP_VERSION')){
                     _this.props.navigator.replace({//不管登录状态是否有效，只要版本不匹配均进入升级界面
                         component: Version,
                         params: {
                             remoteVersion: data.info.version
                         }
                     });
-                }else if(data.state){
+                }else if(data.state && data.info.version.name === util.getConstantField('APP_VERSION')) {
                     AsyncStorage.setItem("LOGIN_CODE",data.info.loginCode);
                     AsyncStorage.setItem("LOGIN_TOKEN",data.info.loginToken);
                     _this.props.navigator.replace({
-                        component: main
+                        component: Main
                     })
                 }else{
                     Alert.alert('提示', '错误代码:' + data.code);
@@ -87,6 +74,7 @@ export default class login extends Component {
                     <FormInput inputStyle={styles.forminput}
                                placeholder="请输入工号"
                                placeholderTextColor="#A5A5A5"
+                               underlineColorAndroid="#A5A5A5"
                                onChangeText={(loginCodeText) => this.setState({loginCode:loginCodeText})}
                     />
                     <FormLabel labelStyle={styles.formlabel}>密码</FormLabel>
@@ -94,12 +82,14 @@ export default class login extends Component {
                                placeholder="请输入密码"
                                secureTextEntry
                                placeholderTextColor="#A5A5A5"
+                               underlineColorAndroid="#A5A5A5"
                                onChangeText={(passwordText) => this.setState({password:passwordText})}
                     />
                     <FormLabel labelStyle={styles.formlabel}>验证码</FormLabel>
                     <FormInput inputStyle={styles.forminput}
                                placeholder="请输入验证码"
                                placeholderTextColor="#A5A5A5"
+                               underlineColorAndroid="#A5A5A5"
                                onChangeText={(loginMarkText) => this.setState({loginMark:loginMarkText})}
                     />
                     <TouchableOpacity style={styles.sendmark}

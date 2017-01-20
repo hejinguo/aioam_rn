@@ -9,6 +9,8 @@ import inter from '../inter/inter';
 import report from '../report/report';
 import task from '../task/task';
 import file from '../file/file';
+import plan from '../plan/plan';
+import chat from '../chat/chat';
 
 export default class main extends Component {
     constructor(props) {
@@ -79,7 +81,7 @@ export default class main extends Component {
                                     <TouchableHighlight
                                         style={styles.griditem}
                                         underlayColor="#F5F5F5"
-                                        onPress={() => {}}>
+                                        onPress={() => this.props.navigator.push({component: chat})}>
                                         <View>
                                             <Icon type="font-awesome" name='slideshare' color="#8BC34A"/>
                                             <Text>自助服务</Text>
@@ -101,7 +103,7 @@ export default class main extends Component {
                                     <TouchableHighlight
                                         style={styles.griditem}
                                         underlayColor="#F5F5F5"
-                                        onPress={() => {}}>
+                                        onPress={() => this.props.navigator.push({component: plan})}>
                                         <View>
                                             <Icon type="font-awesome" name='paypal' color="#FF5722"/>
                                             <Text>值班计划</Text>

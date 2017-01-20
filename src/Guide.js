@@ -23,19 +23,19 @@ export default class Guide extends Component {
         AsyncStorage.getItem("LOGIN_TOKEN", function (error, result) {
             if (result) {//存在LOGIN_TOKEN可初判已经登录，然后通过Ajax进行验证后确定
                 util.ajax('base/getUser', {}, function (data) {
-                    if(data.info.version.name !== util.getConstantField('APP_VERSION')){
+                    if(data.state && data.info.version.name !== util.getConstantField('APP_VERSION')){
                         _this.props.navigator.replace({//不管登录状态是否有效，只要版本不匹配均进入升级界面
                             component: Version,
                             params: {
                                 remoteVersion: data.info.version
                             }
                         });
-                    }else if(data.state) {
+                    }else if(data.state && data.info.version.name === util.getConstantField('APP_VERSION')) {
                         _this.props.navigator.replace({//APP版本合法且登录状态有效时直接进入主页
                             component: Main
                         });
-                    }else if(!data.state){
-                        _this.props.navigator.replace({//APP版本合法但判断未登录时进入登录页面
+                    }else{
+                        _this.props.navigator.replace({//判断未登录时进入登录页面
                             component: Login
                         });
                     }
