@@ -20,7 +20,7 @@ export default class main extends Component {
     render() {
         return (
             <View style={styles.root}>
-                <View style={styles.aheader}>
+                <View style={[styles.aheader,{paddingTop:__IOS__ ? 20 : 0}]}>
                     <SearchBar
                         containerStyle={{backgroundColor: '#3D455F',borderTopWidth:0,borderBottomWidth:0,}}
                         inputStyle={{backgroundColor:'#FFFFFF'}}
