@@ -64,7 +64,7 @@ export default class login extends Component {
     render() {
         return (
             <View style={styles.root}>
-                <View style={styles.aheader}>
+                <View style={[styles.aheader,{paddingTop:__IOS__ ? 20 : 0}]}>
                     <Text style={styles.apptitle}>
                         ESOP+运营助手
                     </Text>

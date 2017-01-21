@@ -44,7 +44,7 @@ export default class report extends Component {
     render() {
         return (
             <View style={styles.root}>
-                <View style={styles.aheader}>
+				<View style={[styles.aheader,{paddingTop:__IOS__ ? 20 : 0}]}>
                     <View style={{flexDirection:'row'}}>
                         <Icon type="foundation" name='arrow-left'
                               color="#FFFFFF" underlayColor="#3D455F"
