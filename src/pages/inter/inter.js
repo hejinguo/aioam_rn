@@ -29,7 +29,7 @@ export default class inter extends Component {
                 if (action !== DatePickerAndroid.dismissedAction) {
                     // 这里开始可以处理用户选好的年月日三个参数：year, month (0-11), day
                     _this.setState({
-                        opTime: util.fmtDateTime(new Date(year,month,day), '')
+                        opTime: util.fmtDateTime(new Date(year, month, day), '')
                     });
                 }
             } catch ({code, message}) {
@@ -44,12 +44,16 @@ export default class inter extends Component {
     render() {
         return (
             <View style={styles.root}>
-				<View style={[styles.aheader,{paddingTop:__IOS__ ? 20 : 0}]}>
-                    <View style={{flexDirection:'row'}}>
+                <View style={[styles.aheader,{paddingTop:__IOS__ ? 20 : 0}]}>
+                    <View style={styles.aheaderLeft}>
                         <Icon type="foundation" name='arrow-left'
                               color="#FFFFFF" underlayColor="#3D455F"
                               onPress={() => this.props.navigator.pop()}/>
-                        <Text style={{flex:1,textAlign: 'center',color:'#FFFFFF'}}>接口加载({this.state.opTime})</Text>
+                    </View>
+                    <View style={styles.aheaderTitle}>
+                        <Text style={{color:'#FFFFFF'}}>接口加载({this.state.opTime})</Text>
+                    </View>
+                    <View style={styles.aheaderRight}>
                         <Icon type="foundation" name='calendar'
                               color="#FFFFFF" underlayColor="#3D455F"
                               onPress={this._onPressChangeDate.bind(this)}/>
@@ -123,8 +127,17 @@ const styles = StyleSheet.create({
     },
     aheader: {
         height: 44,
-        padding: 10,
-        backgroundColor: '#3D455F'
+        backgroundColor: '#3D455F',
+        flexDirection: 'row'
+    },
+    aheaderLeft: {
+        alignItems: 'center', justifyContent: 'center', paddingHorizontal: 5
+    },
+    aheaderTitle: {
+        flex: 1, alignItems: 'center', justifyContent: 'center',
+    },
+    aheaderRight: {
+        alignItems: 'center', justifyContent: 'center', paddingHorizontal: 5
     },
     abody: {
         flex: 1,

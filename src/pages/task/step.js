@@ -20,11 +20,15 @@ export default class step extends Component {
         return (
             <View style={styles.root}>
 				<View style={[styles.aheader,{paddingTop:__IOS__ ? 20 : 0}]}>
-                    <View style={{flexDirection:'row'}}>
+                    <View style={styles.aheaderLeft}>
                         <Icon type="foundation" name='arrow-left'
                               color="#FFFFFF" underlayColor="#3D455F"
                               onPress={() => this.props.navigator.pop()}/>
-                        <Text style={{flex:1,textAlign: 'center',color:'#FFFFFF'}}>任务执行({this.props.procName})</Text>
+                    </View>
+                    <View style={styles.aheaderTitle}>
+                        <Text style={{color:'#FFFFFF'}}>任务步骤({this.props.procName})</Text>
+                    </View>
+                    <View style={styles.aheaderRight}>
                         <Text></Text>
                     </View>
                 </View>
@@ -66,8 +70,17 @@ const styles = StyleSheet.create({
     },
     aheader: {
         height: 44,
-        padding: 10,
-        backgroundColor: '#3D455F'
+        backgroundColor: '#3D455F',
+        flexDirection: 'row'
+    },
+    aheaderLeft: {
+        alignItems: 'center', justifyContent: 'center', paddingHorizontal: 5
+    },
+    aheaderTitle: {
+        flex: 1, alignItems: 'center', justifyContent: 'center',
+    },
+    aheaderRight: {
+        alignItems: 'center', justifyContent: 'center', paddingHorizontal: 5
     },
     abody: {
         flex: 1,
