@@ -20,7 +20,7 @@ export default class main extends Component {
     render() {
         return (
             <View style={styles.root}>
-                <View style={[styles.aheader,{paddingTop:__IOS__ ? 20 : 0}]}>
+                <View style={[styles.aheader,__IOS__ ? styles.aheader_ios : '']}>
                     <SearchBar
                         containerStyle={{backgroundColor: '#3D455F',borderTopWidth:0,borderBottomWidth:0,}}
                         inputStyle={{backgroundColor:'#FFFFFF'}}
@@ -177,6 +177,10 @@ const styles = StyleSheet.create({
     aheader: {
         height: 200,
         backgroundColor: '#3D455F'
+    },
+    aheader_ios: {
+        height: 220,
+        paddingTop: 20
     },
     abody: {
         flex: 1,

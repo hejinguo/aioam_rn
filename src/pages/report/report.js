@@ -44,7 +44,7 @@ export default class report extends Component {
     render() {
         return (
             <View style={styles.root}>
-                <View style={[styles.aheader,{paddingTop:__IOS__ ? 20 : 0}]}>
+                <View style={[styles.aheader,__IOS__ ? styles.aheader_ios : '']}>
                     <View style={styles.aheaderLeft}>
                         <Icon type="foundation" name='arrow-left'
                               color="#FFFFFF" underlayColor="#3D455F"
@@ -135,6 +135,10 @@ const styles = StyleSheet.create({
         height: 44,
         backgroundColor: '#3D455F',
         flexDirection: 'row'
+    },
+    aheader_ios: {
+        height: 64,
+        paddingTop: 20
     },
     aheaderLeft: {
         alignItems: 'center', justifyContent: 'center', paddingHorizontal: 5

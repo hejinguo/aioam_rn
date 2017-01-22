@@ -51,7 +51,7 @@ export default class step extends Component {
     render() {
         return (
             <View style={styles.root}>
-				<View style={[styles.aheader,{paddingTop:__IOS__ ? 20 : 0}]}>
+				<View style={[styles.aheader,__IOS__ ? styles.aheader_ios : '']}>
                     <View style={styles.aheaderLeft}>
                         <Icon type="foundation" name='arrow-left'
                               color="#FFFFFF" underlayColor="#3D455F"
@@ -78,6 +78,7 @@ export default class step extends Component {
                     <TextInput
                         placeholder="请输入用户或集团的关键字检索..."
                         underlineColorAndroid="transparent"
+                        style={{backgroundColor:'#00FF00'}}
                         onSubmitEditing={(event) => {this._handleInputSubmit(event)}}
                     />
                 </View>
@@ -97,6 +98,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#3D455F',
         flexDirection: 'row'
     },
+    aheader_ios: {
+        height: 64,
+        paddingTop: 20
+    },
     aheaderLeft: {
         alignItems: 'center', justifyContent: 'center', paddingHorizontal: 5
     },
@@ -111,7 +116,6 @@ const styles = StyleSheet.create({
         alignItems: 'stretch'
     },
     afooter: {
-        borderTopColor: '#FF0000',
-        borderTopWidth: 1
+        height:50
     }
 });
