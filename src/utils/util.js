@@ -58,7 +58,7 @@ function ajax(url, params, onSuccess, onError, onComplete) {
     var onSuccess = arguments[2] ? arguments[2] : function () {};//成功时
     var onError = arguments[3] ? arguments[3] : function () {};//异常时
     var onComplete = arguments[4] ? arguments[4] : function () {};//完成时
-    var AI_APP_PATH = "http://218.205.252.12:10029/aioam/";//办公网环境
+    var AI_APP_PATH = "https://hejinguo.win:10029/aioam/";//办公网环境
 
     AsyncStorage.getItem("LOGIN_TOKEN", function (error, result) {
         params.loginToken = result || '';

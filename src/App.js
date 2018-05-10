@@ -11,6 +11,7 @@ const defaultRoute = {
 };
 
 export default class APP extends Component {
+
     componentWillMount() {
         if (Platform.OS === 'android') {//__ANDROID__
             BackAndroid.addEventListener('hardwareBackPress', this._onBackAndroid);
